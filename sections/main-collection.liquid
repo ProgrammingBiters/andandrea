@@ -11,58 +11,52 @@
 
   assign current_sort_by = collection.sort_by | default: collection.default_sort_by
 -%}
-
+{% if collection.title == 'Products' %}
+  <div class="banner-img">
+            <div class="banner-main-img">
+              {% if collection.image.src != blank %}
+            <img data-cc-animate data-cc-animate-delay="0.2s" src="{{ collection.image.src | collection_img_url: 'master' }}">
+                {% else %}
+            <img data-cc-animate data-cc-animate-delay="0.2s" src="{{ section.settings.banner-img | img_url : 'master' }}">
+                {% endif %}
+            </div>
+            <div class="banner-content">
+            {% if section.settings.svg_code != blank %}
+            <div class="svg___icon">{{ section.settings.svg_code }}</div>
+            {% endif %}
+            <h2>{{ section.settings.title-banner }}</h2>
+            </div>
+            </div>
+  {% endif %}
 <div data-section-type="collection-template"
      data-ajax-filtering="{{ section.settings.ajax_products }}"
      data-components="tabs,product-block,price-range,accordion,sticky-scroll-direction"
-     class="pb-medium {% if section.settings.show_collection_image and collection.featured_image %}header-overlap-section{% elsif section.settings.show_collection_content %}pt-medium{% else %}sm:pt-medium{% endif %}" data-cc-animate>
+     class="pb-medium {% if section.settings.show_collection_image and collection.featured_image %}header-overlap-section{% elsif section.settings.show_collection_content %}{% else %}sm:pt-medium{% endif %}" data-cc-animate>
 
   {% paginate collection.products by section.settings.products_per_page %}
     {% if section.settings.show_collection_image and collection.featured_image %}
       <div class="collection-header image-overlay image-overlay--bg-full needs-alt-logo">
-        <div class="rimage-outer-wrapper rimage-background lazyload fade-in"
-             data-cc-animate="cc-fade-in-zoom-out"
-             data-bgset="{% render 'bgset', image: collection.featured_image %}"
-             data-sizes="auto"
-             data-parent-fit="cover">
-          <noscript>
-            <div class="rimage-wrapper" style="padding-top:{{ 1 | divided_by: collection.featured_image.aspect_ratio | times: 100 }}%">
-              <img src="{{ collection.featured_image | img_url: '1024x1024' }}" alt="{{ collection.featured_image.alt | escape }}" class="rimage__image">
+            <div class="banner-img">
+          <div class="banner-main-img">
+              {% if collection.image.src != blank %}
+            <img data-cc-animate data-cc-animate-delay="0.2s" src="{{ collection.image.src | collection_img_url: 'master' }}">
+                {% else %}
+            <img data-cc-animate data-cc-animate-delay="0.2s" src="{{ section.settings.banner-img | img_url : 'master' }}">
+                {% endif %}
             </div>
-          </noscript>
-        </div>
-
-        <div class="overlay-type overlay" data-cc-animate="cc-fade-in-zoom-out">
-          <div class="overlay__content">
-    {% endif %}
-
-      <div class="central">
-        <div class="content transparent">
-          {% if section.settings.show_collection_content %}
-            {% if collection.description != blank %}
-              <h1 class="line-1 feature-header" data-cc-animate>{{ collection.title }}</h1>
-
-              {% if section.settings.description_position == "top" %}
-                <div class="line-2 rte" data-cc-animate data-cc-animate-delay="0.2s">
-                  {{ collection.description }}
-                </div>
-              {% endif %}
-            {% else %}
-              <h1 class="line-1 feature-header no-margin" data-cc-animate>{{ collection.title }}</h1>
+            <div class="banner-content">
+            {% if section.settings.svg_code != blank %}
+            <div class="svg___icon">{{ section.settings.svg_code }}</div>
             {% endif %}
-          {% endif %}
-          {% if section.settings.svg_code != blank %}
-          <div class="svg___icon">{{ section.settings.svg_code }}</div>
-          {% endif %}
-        </div>
-      </div>
-
-    {% if section.settings.show_collection_image and collection.featured_image %}
-          </div>
-        </div>
+            <h2>{{ section.settings.title-banner }}</h2>
+            </div>
+            </div>
       </div>
     {% endif %}
-
+ <div class="hedding-seller">
+    <h1 class="line-1  no-margin cc-animate-init feature-header--visible -in cc-animate-complete">{{ section.settings.headings }}</h1>
+    <p style="text-align:center;">{{ section.settings.infoo }}</p>
+  </div>
     {% render "search-filter",
       mode: "collection",
       results: collection,
@@ -72,6 +66,9 @@
       current_sort_by: current_sort_by
     %}
 
+
+          
+  
     {% if collection.description != blank and section.settings.description_position == "bottom" and section.settings.show_collection_content == true %}
       <div class="central footer">
         <div class="content transparent">
@@ -84,12 +81,175 @@
   {% endpaginate %}
 </div>
 
-
+<style>
+  .banner-img{
+    height:350px;
+    width:100%;
+    overflow:hidden;
+    position:relative;
+  }
+   .banner-img .banner-main-img img{
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    object-fit: cover;
+    object-position: center;
+     width: 100%;
+    height: 100%;
+   }
+  .banner-img .banner-content{
+    position: absolute;
+    top:5%;
+    left:27%;
+    width:50%;
+  }
+  .banner-img .banner-content h2{
+    color:#fff;
+    margin-top:10px;
+  }
+  .sold-out-popup{
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .sold-out-popup .popup-inner{
+      background: #fff;
+    width: 44%;
+    padding: 42px 20px;
+    text-align: center;
+    opacity: .9;
+    font-size: 20px;
+  }
+    .sold-out-popup .popup-inner p{
+        margin: 0;
+    line-height: 40px;
+  }
+  .sold-out-popup .popup-inner a{
+    color:#e31d93;
+  }
+  @media (min-width:992px) and (max-width:1199px){
+     .sold-out-popup .popup-inner {
+    width: 58%;
+       padding: 20px 20px;
+     }
+}
+@media (min-width:768px) and (max-width:991px){
+      .sold-out-popup .popup-inner {
+      width: 72%;
+      padding: 30px 20px;
+      font-size: 18px;
+    }
+    .sold-out-popup .popup-inner p {
+      margin: 0;
+      line-height: 29px;
+    }
+}
+  @media (max-width:767px){
+      .sold-out-popup .popup-inner {
+      width: 72%;
+      padding: 30px 20px;
+      font-size: 18px;
+    }
+    .sold-out-popup .popup-inner p {
+      margin: 0;
+      line-height: 29px;
+    }
+  }
+  @media(max-width:320px){
+      .sold-out-popup .popup-inner {
+      width: 95%;
+    }
+  }
+  .hedding-seller{
+        margin-top: 29px;
+        margin-left: 100px;
+  }
+  .hedding-seller h1{
+    margin-bottom: 0px;
+    font-size: 33px;
+  }
+  .hedding-seller h1 sup{
+    font-size:18px;
+  }
+  .hedding-seller p{
+    text-align: center;
+    margin: 0;
+  }
+  .hedding-seller p span{
+    color:#e31d93;
+  }
+  #page-content .central{
+    margin: 20px auto 0 ;
+/*     padding-left:0; */
+  }
+  .central .content h1{
+    margin:0;
+  }
+  @media(max-width:767px){
+    .hedding-seller{
+      margin-left:0;
+      margin-top:0;
+      padding-top:25px;
+    }
+    .hedding-seller h1{
+      font-size:27px;
+    }
+  }
+</style>
 {% schema %}
   {
     "name": "Collection pages",
     "class": "theme-filter-container",
     "settings": [
+       {
+        "type": "header",
+        "content": "Banner"
+      },
+         {
+        "type": "image_picker",
+        "id": "banner-img",
+        "label": "Banner Img"
+      },
+      {
+        "type": "html",
+        "id": "svg_code",
+        "label": "SVG Code"
+      },
+       {
+        "type": "text",
+        "id": "title-banner",
+        "label": "Banner Title"
+      },
+      {
+        "type":"header",
+        "content":"Sold Out Popup"
+      },
+      {
+        "type":"textarea",
+        "id":"popup-text",
+        "label":"Popup Content"
+      },
+       {
+        "type": "header",
+        "content": "Collection Heding"
+      },
+         {
+        "type": "text",
+        "id": "headings",
+        "label": "Heading"
+      },
+      {
+        "type": "textarea",
+        "id": "infoo",
+        "label": "Details"
+      },
       {
         "type": "header",
         "content": "Header"
@@ -106,11 +266,7 @@
         "label": "Show collection image",
         "default": true
       },
-      {
-        "type": "html",
-        "id": "svg_code",
-        "label": "SVG Code"
-      },
+     
       {
         "type": "select",
         "id": "description_position",
@@ -300,6 +456,101 @@
         "id": "show_featured_in_sort",
         "label": "Show 'Featured' option in sorting dropdown",
         "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "swatch_enabled",
+        "label": "Enable color swatches",
+        "default": false
+      },
+      {
+        "type": "paragraph",
+        "content": "This indicates the color of the product variants. [Learn more](https:\/\/cleancanvas.co.uk\/support\/general\/swatches)"
+      },
+      {
+        "type": "text",
+        "id": "swatch_option_name",
+        "label": "Option name",
+        "default": "Color"
+      },
+      {
+        "type": "select",
+        "id": "swatch_method",
+        "label": "Swatch method",
+        "info": "For 'Uploaded image' - upload png image files where the file name matches the option value, in lowercase with spaces replaced by hyphens. For example 'Dark blue' becomes 'dark-blue.png'",
+        "default": "standard",
+        "options": [
+          {
+            "value": "standard",
+            "label": "HTML color"
+          },
+          {
+            "value": "image",
+            "label": "Uploaded image"
+          }
+        ]
+      },
+      {
+        "type": "checkbox",
+        "id": "prod_block_swatches",
+        "label": "Show swatches in product grid",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "swatch_use_prod_images",
+        "label": "Show product images in swatches",
+        "info": "This won't work for collection page filters (if enabled)",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "swatch_prod_images_shape",
+        "label": "Swatch product image shape",
+        "options": [
+          {
+            "value": "natural",
+            "label": "Natural"
+          },
+          {
+            "value": "square",
+            "label": "Square"
+          },
+          {
+            "value": "circle",
+            "label": "Circle"
+          }
+        ],
+        "default": "natural"
+      },
+      {
+        "type": "select",
+        "id": "swatch_prod_images_alignment",
+        "label": "Swatch product image alignment",
+        "options": [
+          {
+            "value": "top",
+            "label": "Top"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          }
+        ],
+        "default": "center"
+      }
+    ],
+    "blocks":[
+      {
+        "type":"ourproduct-slide",
+        "name":"Sold-Out Product",
+        "settings":[
+          {
+            "type":"product",
+              "id": "product_main",
+            "label": "Product"
+          }
+        ]
       }
     ]
   }

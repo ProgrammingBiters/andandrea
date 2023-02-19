@@ -1,20 +1,6 @@
 <!doctype html>
 <html class="no-js" lang="{{ request.locale.iso_code }}">
 <head>
-{% comment %}EasylockdownHeadBegin{% endcomment %}{% capture elhRender %}{% render 'easylockdown_head', easylockdownRender: true, easylockdownCustomPriceSelector: easylockdownCustomPriceSelector %}{% endcapture %}{% assign elhRender = elhRender | split: '--elhResults--'%}{{ elhRender[0] }}{% comment %}EasylockdownHeadEnd{% endcomment %}
-
-
- {% include 'kiwiSizing' %}
-  
-  <!-- Showcase 5.4.0 -->
-  
-
-  
-  
-  
-
-  <link rel="preload" href="{{ 'styles.css' | asset_url }}" as="style">
-
   {% render 'head-tag' %}
   {%- assign base_font = settings.type_base_font -%}
   {%- assign base_font_medium = base_font | font_modify: 'weight', '500' -%}
@@ -22,34 +8,27 @@
   {%- if base_font_medium -%}<link rel="preload" as="font" href="{{ base_font_medium | font_url }}" type="font/woff2" crossorigin>{%- endif -%}
   {%- if base_font_semibold -%}<link rel="preload" as="font" href="{{ base_font_semibold | font_url }}" type="font/woff2" crossorigin>{%- endif -%}
 
-  <meta name="theme-color" content="{{ settings.col_btn_bg }}">
-
-  <title>
-    {{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
-  </title>
-
+  <title>{{ page_title }}{% if current_tags %}{% assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags }}{% endif %}{% if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}</title>
   {% render 'social-meta-tags' %}
-
-  {% style %}
-    :root {
-      --viewport-height: 100vh;
-      --viewport-height-first-section: 100vh;
-      --nav-height: 0;
-    }
-  {% endstyle %}
+  {% style %}:root {--viewport-height: 100vh;--viewport-height-first-section: 100vh;--nav-height: 0;}{% endstyle %}
 
   {{ 'styles.css' | asset_url | stylesheet_tag }}
   {{ 'cart-poup.css' | asset_url | stylesheet_tag }}
 
-  {{ content_for_header }}
+  {% render 'andAndrea' %}{% comment %}{{ content_for_header }}{% endcomment %}
+  {% comment %}EasylockdownHeadBegin{% endcomment %}
+  {% capture elhRender %}{% render 'easylockdown_head', easylockdownRender: true, easylockdownCustomPriceSelector: easylockdownCustomPriceSelector %}{% endcapture %}
+  {% assign elhRender = elhRender | split: '--elhResults--'%}{{ elhRender[0] }}
+  {% comment %}EasylockdownHeadEnd{% endcomment %}
+  {% if template.name == 'product' %}{% include 'kiwiSizing' %}{% endif %}
 
   <script>
     document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
     window.theme = window.theme || {};
     {% if settings.currency_code_enabled %}
-      theme.money_format_with_code_preference = {{ shop.money_with_currency_format | json }};
+    theme.money_format_with_code_preference = {{ shop.money_with_currency_format | json }};
     {% else %}
-      theme.money_format_with_code_preference = {{ shop.money_format | json }};
+    theme.money_format_with_code_preference = {{ shop.money_format | json }};
     {% endif %}
     theme.money_format = {{ shop.money_format | json }};
     theme.money_container = '.theme-money';
@@ -101,16 +80,15 @@
       animationEnabledDesktop: {{ settings.animation_enabled_desktop | json }},
       animationEnabledMobile: {{ settings.animation_enabled_mobile | json }}
     };
-
     theme.checkViewportFillers = function(){
       var toggleState = false;
       var elPageContent = document.getElementById('page-content');
       if(elPageContent) {
-        var elOverlapSection = elPageContent.querySelector('.header-overlap-section');
-        if (elOverlapSection) {
-          var padding = parseInt(getComputedStyle(elPageContent).getPropertyValue('padding-top'));
+      var elOverlapSection = elPageContent.querySelector('.header-overlap-section');
+      if (elOverlapSection) {
+      var padding = parseInt(getComputedStyle(elPageContent).getPropertyValue('padding-top'));
           toggleState = ((Math.round(elOverlapSection.offsetTop) - padding) === 0);
-        }
+      }
       }
       if(toggleState) {
         document.getElementsByTagName('body')[0].classList.add('header-section-overlap');
@@ -118,22 +96,21 @@
         document.getElementsByTagName('body')[0].classList.remove('header-section-overlap');
       }
     };
-
     theme.assessAltLogo = function(){
       var elsOverlappers = document.querySelectorAll('.needs-alt-logo');
       var useAltLogo = false;
       if(elsOverlappers.length) {
-        var elSiteControl = document.querySelector('#site-control');
-        var elSiteControlInner = document.querySelector('#site-control .site-control__inner');
-        var headerMid = elSiteControlInner.offsetTop + elSiteControl.offsetTop + elSiteControlInner.offsetHeight / 2;
-        Array.prototype.forEach.call(elsOverlappers, function(el, i){
-          var thisTop = el.getBoundingClientRect().top;
-          var thisBottom = thisTop + el.offsetHeight;
-          if(headerMid > thisTop && headerMid < thisBottom) {
-            useAltLogo = true;
-            return false;
-          }
-        });
+      var elSiteControl = document.querySelector('#site-control');
+      var elSiteControlInner = document.querySelector('#site-control .site-control__inner');
+      var headerMid = elSiteControlInner.offsetTop + elSiteControl.offsetTop + elSiteControlInner.offsetHeight / 2;
+          Array.prototype.forEach.call(elsOverlappers, function(el, i){
+      var thisTop = el.getBoundingClientRect().top;
+      var thisBottom = thisTop + el.offsetHeight;
+      if(headerMid > thisTop && headerMid < thisBottom) {
+          useAltLogo = true;
+      return false;
+      }
+      });
       }
       if(useAltLogo) {
         document.getElementsByTagName('body')[0].classList.add('use-alt-logo');
@@ -142,128 +119,89 @@
       }
     };
   </script>
-  
-     <!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-PPXZD7D');</script>
-   <!-- End Google Tag Manager -->
-  
-   <!-- Hotjar Tracking Code for andAndrea -->
-<script>
-    (function(h,o,t,j,a,r){
-        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
-        h._hjSettings={hjid:1420129,hjsv:6};
-        a=o.getElementsByTagName('head')[0];
-        r=o.createElement('script');r.async=1;
-        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
-        a.appendChild(r);
-    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
-</script>
-  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet"> 
 
+ 
+  {% render 'fonts' %}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.2.6/swiper-bundle.css" integrity="sha512-LTz09eiSkjtMayQgsyCcxuA2POUuvwdJoejrNLLIj5tulySAEAFgRHXW5JO4/qW36nurH8iApZ4SMj9E2rRHtQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
   {% render 'shogun-head' %}
+  {% include 'fa_translate_custom' %}
+  <script src="{{ 'jquery.js' | asset_url }}"></script> 
 </head>
-
-<body class="page-{{ page_title | handle }} {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if template.suffix != blank %} template-suffix-{{ template.suffix }}{% endif %}{% if template contains 'customers' %} template-customer-area{% endif %}{% if logo_html contains 'img' %} has-logo{% endif %} animation-speed-{{ settings.animation_speed }}"
-      {% if settings.animation_speed == "fast" %}data-cc-animate-timeout="0"{% endif %}>
+<body class="page-{{ page_title | handle }} {% if customer %}customer-logged-in {% endif %}template-{{ template | replace: '.', ' ' | truncatewords: 1, '' | handle }}{% if template.suffix != blank %} template-suffix-{{ template.suffix }}{% endif %}{% if template contains 'customers' %} template-customer-area{% endif %}{% if logo_html contains 'img' %} has-logo{% endif %} animation-speed-{{ settings.animation_speed }}" {% if settings.animation_speed == "fast" %}data-cc-animate-timeout="0"{% endif %}>
   {% if settings.animation_enabled_mobile %}
-    <script>
-      if(window.innerWidth < 768 && window.localStorage.getItem('is_first_visit') !== null) {
-        var pageFadedIn = false;
-        document.body.style.opacity = 0;
-
-        function fadeInPageMob(){
-          if(!pageFadedIn) {
-            document.body.classList.add("cc-animate-enabled");
-            document.body.style.transition = 'opacity 0.{% if settings.animation_speed == "fast" %}2{% else %}4{% endif %}s';
-            setTimeout(function () {
-              document.body.style.opacity = 1;
-            }, {% if settings.animation_speed == "fast" %}50{% else %}200{% endif %});
-            pageFadedIn = true;
-          }
-        }
-
-        window.addEventListener("load", fadeInPageMob);
-        setTimeout(fadeInPageMob, 3000);
-      }
-
-      window.addEventListener("pageshow", function(){
-        document.getElementById('cc-veil').classList.remove('-in');
-      });
-    </script>
+  <script>
+    if(window.innerWidth < 768 && window.localStorage.getItem('is_first_visit') !== null) {
+    var pageFadedIn = false;
+    document.body.style.opacity = 0;
+    function fadeInPageMob(){
+    if(!pageFadedIn) {
+    document.body.classList.add("cc-animate-enabled");
+    document.body.style.transition = 'opacity 0.{% if settings.animation_speed == "fast" %}2{% else %}4{% endif %}s';
+    setTimeout(function () {
+    document.body.style.opacity = 1;
+    }, {% if settings.animation_speed == "fast" %}50{% else %}200{% endif %});
+    pageFadedIn = true;
+    }
+    }
+    window.addEventListener("load", fadeInPageMob);
+    setTimeout(fadeInPageMob, 3000);
+    }
+    window.addEventListener("pageshow", function(){
+    document.getElementById('cc-veil').classList.remove('-in');
+    });
+  </script>
   {% endif %}
 
   {% if settings.animation_enabled_desktop %}
-    <script>
-      if ('IntersectionObserver' in window) {
-        document.body.classList.add("cc-animate-enabled");
-      }
-
-      window.addEventListener("pageshow", function(){
-        document.getElementById('cc-veil').classList.remove('-in');
-      });
-    </script>
+  <script>
+    if ('IntersectionObserver' in window) {
+    document.body.classList.add("cc-animate-enabled");
+    }
+    window.addEventListener("pageshow", function(){
+    document.getElementById('cc-veil').classList.remove('-in');
+    });
+  </script>
   {% endif %}
 
   <a class="skip-link visually-hidden" href="#page-content">{{ 'general.accessibility_labels.skip_to_content' | t }}</a>
-
   {% section 'header' %}
 
   <main id="page-content">
-    {% comment %}{{ content_for_layout }}{% endcomment %}{% render 'easylockdown_body', content_for_layout: content_for_layout, elhDefines: elhRender[1] %}
-
-    {%- if template contains 'faq' -%}
-      <aside class="faq-sidebar" id="faq-sidebar" data-cc-animate></aside>
-    {%- endif -%}
+  {% comment %}{{ content_for_layout }}{% endcomment %}
+  {% render 'easylockdown_body', content_for_layout: content_for_layout, elhDefines: elhRender[1] %}
+  {%- if template contains 'faq' -%}
+  <aside class="faq-sidebar" id="faq-sidebar" data-cc-animate></aside>
+  {%- endif -%}
   </main>
 
   <script>
     var firstSection = document.body.querySelector('#page-content .shopify-section:first-child');
     if(firstSection) {
-      var firstBgSet = firstSection.querySelector('[data-bgset]');
-
-      if (firstBgSet) {
-        var bgSets = firstBgSet.dataset.bgset.split(',');
-        if(bgSets) {
-          for (var i = 0; i < bgSets.length; i++) {
-            var widthMatch = bgSets[i].match(/ [0-9]+w/g);
-            var heightMatch = bgSets[i].match(/ [0-9]+h/g);
-
-            if(widthMatch && heightMatch) {
-              var width = parseInt(widthMatch[0].replace('w', '').trim());
-              var height = parseInt(heightMatch[0].replace('h', '').trim());
-
-              if (width >= window.innerWidth && height >= window.innerHeight) {
-                firstBgSet.style.backgroundImage = "url('" + bgSets[i].trim().split(' ')[0] + "')";
-                firstBgSet.classList.remove('fade-in');
-                break;
-              }
-            }
-          }
-        }
-      } else if (firstSection.querySelector('[data-src]')) {
-        var firstDataSrc = firstSection.querySelector('[data-src]');
-        var widths = JSON.parse(firstDataSrc.dataset.widths);
-        for (var i = 0; i < widths.length; i++) {
-          var width = parseInt(widths[i]);
-          if (width >= window.innerWidth) {
-            firstDataSrc.setAttribute('src', firstDataSrc.dataset.src.replace('{width}', width));
-            firstDataSrc.classList.remove('fade-in');
-            break;
-          }
-        }
-      }
-    }
+    var firstBgSet = firstSection.querySelector('[data-bgset]');
+    if (firstBgSet) {
+    var bgSets = firstBgSet.dataset.bgset.split(',');
+    if(bgSets) {
+    for (var i = 0; i < bgSets.length; i++) {
+    var widthMatch = bgSets[i].match(/ [0-9]+w/g);
+    var heightMatch = bgSets[i].match(/ [0-9]+h/g);
+    if(widthMatch && heightMatch) {
+    var width = parseInt(widthMatch[0].replace('w', '').trim());
+    var height = parseInt(heightMatch[0].replace('h', '').trim());
+    if (width >= window.innerWidth && height >= window.innerHeight) {
+    firstBgSet.style.backgroundImage = "url('" + bgSets[i].trim().split(' ')[0] + "')";
+    firstBgSet.classList.remove('fade-in');
+    break;
+    }}}}
+    } else if (firstSection.querySelector('[data-src]')) {
+    var firstDataSrc = firstSection.querySelector('[data-src]');
+    var widths = JSON.parse(firstDataSrc.dataset.widths);
+    for (var i = 0; i < widths.length; i++) {
+    var width = parseInt(widths[i]);
+    if (width >= window.innerWidth) {
+    firstDataSrc.setAttribute('src', firstDataSrc.dataset.src.replace('{width}', width));
+    firstDataSrc.classList.remove('fade-in');
+    break;
+    }}}}
   </script>
 
   {% section 'popup' %}
@@ -271,77 +209,70 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   <!-- Search form -->
   <div id="search-modal" class="theme-modal theme-modal--fullscreen" tabindex="-1">
-    <a href="#" data-modal-close class="modal-close">&times;</a>
-    <div class="inner">
-      <div class="container growth-area">
-        <form action="{{ routes.search_url }}" method="get" class="search-form" role="search">
-          {% comment %} Remove the following line to search everything, not just products {% endcomment %}
-          <input type="hidden" name="type" value="{{ settings.search_type }}" />
-          <input type="hidden" name="options[prefix]" value="last" />
-
-          <div class="inline-mini-form inline-mini-form--arrow">
-            <input type="text" name="q"
-                   placeholder="{{ 'general.search.page_placeholder' | t }}"
-                   class="focus-me"
-                   value="{{ search.terms | escape }}"
-                   aria-label="{{ 'general.search.input_label' | t | escape }}"
-                   autocomplete="off" required />
-            <button class="compact no-hover" type="submit" aria-label="{{ 'general.search.search_button' | t | escape }}"
-            >{% render 'svg-rarrow-long' %}</button>
-          </div>
-        </form>
-      </div>
-    </div>
+  <a href="#" data-modal-close class="modal-close">&times;</a>
+  <div class="inner">
+  <div class="container growth-area">
+  <form action="{{ routes.search_url }}" method="get" class="search-form" role="search">
+  {% comment %} Remove the following line to search everything, not just products {% endcomment %}
+  <input type="hidden" name="type" value="{{ settings.search_type }}" />
+  <input type="hidden" name="options[prefix]" value="last" />
+  <div class="inline-mini-form inline-mini-form--arrow">
+  <input type="text" name="q"
+    placeholder="{{ 'general.search.page_placeholder' | t }}"
+    class="focus-me"
+    value="{{ search.terms | escape }}"
+    aria-label="{{ 'general.search.input_label' | t | escape }}"
+    autocomplete="off" required />
+  <button class="compact no-hover" type="submit" aria-label="{{ 'general.search.search_button' | t | escape }}">{% render 'svg-rarrow-long' %}</button>
+  </div>
+  </form>
+  </div>
+  </div>
   </div>
 
   <div id="cc-veil" class="{% if settings.animation_loading %}cc-veil--animate{% endif %}">
-    {% if settings.animation_loading %}
-      <div class="cc-veil-loader cc-veil-loader--{{ settings.animation_loading_animation }}
-        {% if settings.animation_loading_message != blank and settings.animation_loading_image != blank %}cc-veil-loader--image-text{% endif %}
-        {% if settings.animation_loading_message == blank and settings.animation_loading_image == blank %}cc-veil-loader--blank{% endif %}">
+  {% if settings.animation_loading %}
+  <div class="cc-veil-loader cc-veil-loader--{{ settings.animation_loading_animation }}
+  {% if settings.animation_loading_message != blank and settings.animation_loading_image != blank %}cc-veil-loader--image-text{% endif %}
+  {% if settings.animation_loading_message == blank and settings.animation_loading_image == blank %}cc-veil-loader--blank{% endif %}">
 
-        {% if settings.animation_loading_image != blank %}
-          <img class="cc-veil-loader__image"
-               src="{{ settings.animation_loading_image | img_url: '500x500' }}"
-               alt="{{ settings.animation_loading_image.alt | escape }}"
-               width="{{ settings.animation_loading_image.width }}"
-               height="{{ settings.animation_loading_image.height }}">
-        {% endif %}
+  {% if settings.animation_loading_image != blank %}
+  <img class="cc-veil-loader__image"
+       src="{{ settings.animation_loading_image | img_url: '200x' }}"
+       alt="{{ settings.animation_loading_image.alt | escape }}"
+       width="{{ settings.animation_loading_image.width }}"
+       height="{{ settings.animation_loading_image.height }}">
+  {% endif %}
 
-        {% if settings.animation_loading_message != blank %}
-          <p class="cc-veil-loader__message">
-            {{ settings.animation_loading_message }}
-          </p>
-        {% endif %}
-      </div>
-    {% endif %}
+  {% if settings.animation_loading_message != blank %}
+  <p class="cc-veil-loader__message">{{ settings.animation_loading_message }}</p>
+  {% endif %}
+  </div>
+  {% endif %}
   </div>
 
   <script>
     //Eliminate a bit of CLS
     document.documentElement.style.setProperty('--nav-height',
-      document.getElementById('site-control').clientHeight + "px");
-
+    document.getElementById('site-control').clientHeight + "px");
     //Calculate the viewport height
     theme.calc100vh = function() {
-      var nav = document.getElementById('site-control');
-      document.documentElement.style.setProperty('--viewport-height-first-section',
-        `${(nav.dataset.opacity === 'opaque') ? window.innerHeight - nav.clientHeight : window.innerHeight}px`);
-      document.documentElement.style.setProperty('--viewport-height',
-        (nav.dataset.opacity.indexOf('opaque') > -1 && nav.dataset.positioning === "sticky") ? `calc(100vh - ${nav.clientHeight}px)` : "100vh");
+    var nav = document.getElementById('site-control');
+    document.documentElement.style.setProperty('--viewport-height-first-section',
+    `${(nav.dataset.opacity === 'opaque') ? window.innerHeight - nav.clientHeight : window.innerHeight}px`);
+    document.documentElement.style.setProperty('--viewport-height',
+    (nav.dataset.opacity.indexOf('opaque') > -1 && nav.dataset.positioning === "sticky") ? `calc(100vh - ${nav.clientHeight}px)` : "100vh");
     }
     theme.calc100vh();
   </script>
-  
-   <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PPXZD7D"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
-  
-  
-        <!-- Klaviyo -->
-    <script src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
-    <script>
+
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PPXZD7D" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <!-- Klaviyo -->
+  <script src="https://a.klaviyo.com/media/js/onsite/onsite.js"></script>
+  <script>
     var klaviyo = klaviyo || [];
     klaviyo.init({
       account: "PJnzTc",
@@ -384,389 +315,387 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
      success_text_color: "#1B9500"
     }
   });
-</script>
-    <!-- End Klaviyo -->
+  </script>
+  <!-- End Klaviyo -->
+  <div class="klaviyo_modal" id="k_id_modal" style="display:none;">
+  <div class="klaviyo_inner">
 
-    <div class="klaviyo_modal" id="k_id_modal" style="display:none;">
+  <a href="#" class="klaviyo_close_modal klaviyo_header_close">×</a>
+  <img class="lazyload" data-src="https://cdn.shopify.com/s/files/1/0763/7883/files/131257_69202181944PM_9_1_200x.png">
+  <form action="//manage.kmail-lists.com/subscriptions/subscribe" method="POST" novalidate="novalidate" class="klaviyo_subscription_form">
+  <input type="hidden" name="g" value="JTNSDR">
 
-        <div class="klaviyo_inner">
+  <h2 class="klaviyo_header">Get early VIP access and never miss a PopOut Party when you become a VIP member.</h2>
 
-            <a href="#" class="klaviyo_close_modal klaviyo_header_close">×</a>
-            <img src="https://cdn.shopify.com/s/files/1/0763/7883/files/131257_69202181944PM_9_1.png?v=1631779490">
-            <form action="//manage.kmail-lists.com/subscriptions/subscribe" method="POST" novalidate="novalidate" class="klaviyo_subscription_form">
-                <input type="hidden" name="g" value="JTNSDR">
+  <div class="klaviyo_fieldset">
+  <div class="klaviyo_field_group">
+  <input type="email" id="k_id_modal_$email" name="email" placeholder="Email Address" required>
+  <input id="klaviyo_form_first_name" type="text" name="first_name" value="" placeholder="First Name*" required/>
+  <input id="klaviyo_form_phone" type="text" name="phone" value="" placeholder="Mobile Number (+61 xxx xxx xxx)" />
+  <p>Get SMS reminders before a PopUp Party</p>
+  </div>
+  </div>
 
-                <h2 class="klaviyo_header">Get early VIP access and never miss a PopUp Party when you become a VIP member.</h2>
-
-                <div class="klaviyo_fieldset">
-                    <div class="klaviyo_field_group">
-                      <input type="email" id="k_id_modal_$email" name="email" placeholder="Email Address" required>
-                      <input id="klaviyo_form_first_name" type="text" name="first_name" value="" placeholder="First Name*" required/>
-                      <input id="klaviyo_form_phone" type="text" name="phone" value="" placeholder="Mobile Number (+61 xxx xxx xxx)" />
-                      <p>Get SMS reminders before a PopUp Party</p>
-                    </div>
-                </div>
-
-                <div class="klaviyo_fine_print"></div>
-                <div class="klaviyo_form_actions">
-                    <button type="submit" class="klaviyo_submit_button">
-                        <span>Join</span>
-                    </button>
-                    <p>By providing this information you are joining AndAndrea’s PopUp Party. You can opt-out at any time. <br/>We will never share your personal information</p>
-                </div>
-                <br/><br/>
-                <div class="klaviyo_below_submit" ></div>
-            </form>
-            <div class="error_message" ></div>
-            <div class="success_message" ></div>
-        </div>
-    </div>
+  <div class="klaviyo_fine_print"></div>
+  <div class="klaviyo_form_actions">
+  <button type="submit" class="klaviyo_submit_button">
+  <span>Join</span>
+  </button>
+  <p>By providing this information you are joining AndAndrea’s PopUp Party. You can opt-out at any time. <br/>We will never share your personal information</p>
+  </div>
+  <br/><br/>
+  <div class="klaviyo_below_submit" ></div>
+  </form>
+  <div class="error_message" ></div>
+  <div class="success_message" ></div>
+  </div>
+  </div>
 
   <script type="text/javascript" src="//www.klaviyo.com/media/js/public/klaviyo_subscribe.js"></script>
 
   <script src="{{ 'vendor.min.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
-
   {% render 'body-end-tag' %}
-  
-  
-	{%- render 'flits_capture_code' with 'load_snippet',template:'flits_snippet' -%}
-  	  {%capture regForm %}
-  	{% form 'create_customer' %}
-      {{ form.errors | default_errors }}
-      <div class="form">
-        <p>Becoming a member to andAndrea gives you access to <b>Free Express Shipping Worldwide, and Free Exchanges.</b></p>
-        
-        <div class="input-row">
-          <input aria-label="{{ 'customer.register.first_name' | t }}" placeholder="{{ 'customer.register.first_name' | t }}" type="text" value="" name="customer[first_name]" id="first_name" class="large" size="30" />
-        </div>
 
-        <div class="input-row">
-          <input aria-label="{{ 'customer.register.last_name' | t }}" placeholder="{{ 'customer.register.last_name' | t }}" type="text" value="" name="customer[last_name]" id="last_name" class="large" size="30" />
-        </div>
+  {%- render 'flits_capture_code' with 'load_snippet',template:'flits_snippet' -%}
+  {%capture regForm %}
+  {% form 'create_customer' %}
+  {{ form.errors | default_errors }}
+  <div class="form">
+  <p>As an aA-Lister you’ll receive early invitations to PopOut Parties, express shipping worldwide and 24/7/365 live chat support. Join now!</b></p>
 
-        <div class="input-row">
-          <input aria-label="{{ 'customer.register.email' | t }}" placeholder="{{ 'customer.register.email' | t }}" type="email" value="" name="customer[email]" id="email" class="large" size="30" />
-        </div>
+  <div class="input-row"><input aria-label="{{ 'customer.register.first_name' | t }}" placeholder="{{ 'customer.register.first_name' | t }}" type="text" value="" name="customer[first_name]" id="first_name" class="large" size="30" /></div>
+  <div class="input-row"><input aria-label="{{ 'customer.register.last_name' | t }}" placeholder="{{ 'customer.register.last_name' | t }}" type="text" value="" name="customer[last_name]" id="last_name" class="large" size="30" /></div>
+  <div class="input-row"><input aria-label="{{ 'customer.register.email' | t }}" placeholder="{{ 'customer.register.email' | t }}" type="email" value="" name="customer[email]" id="email" class="large" size="30" /></div>
 
-        <div class="input-row">
-          <input aria-label="{{ 'customer.register.password' | t }}" placeholder="{{ 'customer.register.password' | t }}" type="password" value="" name="customer[password]" id="password" class="large password" size="30" />
-        </div>
+  <div class="input-row">
+  <input aria-label="{{ 'customer.register.password' | t }}" placeholder="{{ 'customer.register.password' | t }}" type="password" value="" name="customer[password]" id="password" class="large password" size="30" />
+  </div>
 
-        <div class="wide-action">
-          <input type="submit" value="{{ 'customer.register.submit' | t }}"/>
-        </div>
-      </div>
-      {% endform %}
+  <div class="wide-action">
+  <input type="submit" value="{{ 'customer.register.submit' | t }}"/>
+  </div>
+  </div>
+  {% endform %}
   {%endcapture%}
   <script>
     document.addEventListener('DOMContentLoaded', function(){
       let popup = document.querySelector('#easylockdown-password-form'),
-      	  t = document.createElement('template'),
-          titlePopup = document.createElement('div'),
-          popupLink = document.createElement('div'),
-          regForm = {{ regForm | json}};
-      
+      t = document.createElement('template'),
+      titlePopup = document.createElement('div'),
+      popupLink = document.createElement('div'),
+      regForm = {{ regForm | json}};
       t.innerHTML = regForm;
       titlePopup.classList.add('easyTitle');
-      titlePopup.innerHTML = "<h3>POP UP COLLECTION</h3><span>aA-Lister access only</span>";
+      titlePopup.innerHTML = "<h3>POPOUT COLLECTION</h3><span>aA-Lister access only</span>";
       popupLink.classList.add('popupLink')
-      popupLink.innerHTML = "<span>While our PopUp Party is closed, you can shop our <a href='https://andandrea.com/collections/always-on'>Always Available Collection</a></span>"
+      popupLink.innerHTML = "<span>While our PopOut Party is closed, you can shop our <a href='https://andandrea.com/collections/always-on'>Always Available Collection</a></span>"
       if(popup.style.display !== 'none'){
-        popup.insertBefore(titlePopup, popup.firstChild);
-      	popup.append(t.content);
-       	document.body.classList.add('easyBg');
-        popup.append(popupLink)
+      popup.insertBefore(titlePopup, popup.firstChild);
+      popup.append(t.content);
+      document.body.classList.add('easyBg');
+      popup.append(popupLink)
       } 
-    })
+      })
   </script>  
-  
+
   {% include 'cart-popup' %}
   <script data-cfasync="false">window.ju_num="498084A7-4E3D-4F89-BD37-310A40C01882";window.asset_host='//cdn.jst.ai/';(function(i,s,o,g,r,a,m){i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)};a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script',asset_host+'vck.js','juapp');</script>
   <script async type="text/javascript" src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=PJnzTc"></script>
   <script type="text/javascript">
-	document.querySelector('.klaviyo_form_trigger-1').addEventListener('click', function (){
-		window._klOnsite = window._klOnsite || []; 
-		window._klOnsite.push(['openForm', 'YhT8Gf']);
-	});
-</script>
+    document.querySelector('.klaviyo_form_trigger-1').addEventListener('click', function (){
+    window._klOnsite = window._klOnsite || []; 
+    window._klOnsite.push(['openForm', 'YhT8Gf']);
+    });
+  </script>
 
+<!--   {% include 'appikon-pre-order-helper' %} -->
+  <input type="hidden" value="{{ settings.shipping_value }}" class="shipping_limit" />
 </body>
+<script src="https://cdn.static.kiwisizing.com/SizingPlugin.prod.js?v=308&shop=andandrea.myshopify.com"></script>
   <script>
     var cookiename = "timercounter";
-var starttimer742;
-var starttimer741;
-function setCookie(cname,cvalue,exdays) {
+    var starttimer742;
+    var starttimer741;
+    function setCookie(cname,cvalue,exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays*24*60*60*1000));
     var expires = "expires=" + d.toGMTString();
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-
-function getCookie(cname) {
+    }
+    function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
     for(var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+    c = c.substring(1);
     }
+    if (c.indexOf(name) == 0) {
+    return c.substring(name.length, c.length);
+    }}
     return "";
-}
-    
-function delete_cookie(name) 
+    }
+    function delete_cookie(name) 
     {
- 		document.cookie = name +'=; Path=/; Expires='+new Date()+';';
-	}
-
-function start74inital(){
-
-
-     // Set the date or time we're counting down to 74 hrs
-
-     var countDownDate74 = Date.parse(document.getElementById('timer_enable').dataset.startTime) + ((74)*60*60*1000);  
-     starttimer742 = setInterval(function() 
-    	{
-     var now = new Date().getTime();
- // Find the distance between now an the count down date
-     var distance74 = countDownDate74 - now;
-
-     setCookie(cookiename, distance74, 30);
-      // Time calculations for days, hours, minutes and seconds
-      var days74 = Math.floor(distance74 / (1000 * 60 * 60 * 74));
-      var hours74 = Math.floor((distance74 % (1000 * 60 * 60 * 74)) / (1000 * 60 * 60));
-      var minutes74 = Math.floor((distance74 % (1000 * 60 * 60)) / (1000 * 60));
-      var seconds74 = Math.floor((distance74 % (1000 * 60)) / 1000);
-
-       document.getElementById("countdown_timer").innerHTML = hours74 + "h : " + minutes74 + "m : " + seconds74 + "s ";
-      if(distance74 <0)
-      {
-        document.getElementById("countdown_timer").innerHTML = "0h : 0m : 0s ";
-        clearInterval(starttimer742);
-      }
-
-  }, 1000);
-
-}
-    
-function start74fromcookie()
-{
-  var countDownDate74c = (Date.parse(document.getElementById('timer_enable').dataset.startTime)+(72*60*60*1000));
+    document.cookie = name +'=; Path=/; Expires='+new Date()+';';
+    }
+    function start74inital(){
+    // Set the date or time we're counting down to 74 hrs
+    var countDownDate74 = Date.parse(document.getElementById('timer_enable').dataset.startTime) + ((74)*60*60*1000);  
+    starttimer742 = setInterval(function() 
+    {
+    var now = new Date().getTime();
+    // Find the distance between now an the count down date
+    var distance74 = countDownDate74 - now;
+    setCookie(cookiename, distance74, 30);
+    // Time calculations for days, hours, minutes and seconds
+    var days74 = Math.floor(distance74 / (1000 * 60 * 60 * 74));
+    var hours74 = Math.floor((distance74 % (1000 * 60 * 60 * 74)) / (1000 * 60 * 60));
+    var minutes74 = Math.floor((distance74 % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds74 = Math.floor((distance74 % (1000 * 60)) / 1000);
+    document.getElementById("countdown_timer").innerHTML = hours74 + "h : " + minutes74 + "m : " + seconds74 + "s ";
+    if(distance74 <0)
+    {
+    document.getElementById("countdown_timer").innerHTML = "0h : 0m : 0s ";
+    clearInterval(starttimer742);
+    }
+    }, 1000);
+    }
+    function start74fromcookie()
+    {
+    var countDownDate74c = (Date.parse(document.getElementById('timer_enable').dataset.startTime)+(72*60*60*1000));
     starttimer741 = setInterval(function() {  
     var now = Date.parse(new Date());
     var distance74c = countDownDate74c - now;
     setCookie(cookiename, distance74c, 30);
     // Update the count down every 1 second
-
     // Time calculations for days, hours, minutes and seconds from the saved distance
     // in the cookie
     var days74c = Math.floor(distance74c / (1000 * 60 * 60 * 72));
     var hours74c = Math.floor((distance74c % (1000 * 60 * 60 * 72)) / (1000 * 60 * 60));
     var minutes74c = Math.floor((distance74c % (1000 * 60 * 60)) / (1000 * 60));
     var seconds74c = Math.floor((distance74c % (1000 * 60)) / 1000);
-      document.getElementById("countdown_timer").innerHTML = hours74c + "h : " + minutes74c + "m : " + seconds74c + "s ";
-        
-      if(distance74c < 0){
-        document.getElementById("countdown_timer").innerHTML = " 0h :  0m : 0s ";
-            clearInterval(starttimer741);
-        }
-
+    document.getElementById("countdown_timer").innerHTML = hours74c + "h : " + minutes74c + "m : " + seconds74c + "s ";
+    if(distance74c < 0){
+    document.getElementById("countdown_timer").innerHTML = " 0h :  0m : 0s ";
+    clearInterval(starttimer741);
+    }
     }, 1000);
-
-}
-    
-document.addEventListener('DOMContentLoaded', function() 
-	{
- var _isannounmentBar = $('#timer_enable').val();
-  var starttimer1,starttimer2;
-  if(_isannounmentBar == 'true') // if settings enabled 
-  {
-    $('.timer_announcementbar').show();
-     var oldTime = Date.parse(document.getElementById('timer_enable').dataset.startTime);
-   
-   if(isNaN(oldTime) == false)
+    }
+    document.addEventListener('DOMContentLoaded', function() 
     {
-        var countDownDate = new Date().getTime() + oldTime;
-      
-        starttimer1 = setInterval(function() {  
-        var now = new Date().getTime();
-        var distance = oldTime - now;
-        setCookie(cookiename, distance, 30);
-        
-        // in the cookie
-        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-          
-		
-        if (distance < 0) 
-        {
-        	clearInterval(starttimer1);
-        	start74fromcookie();
-        }else{
-          document.getElementById("countdown_timer").innerHTML =  hours + "h : " + minutes + "m : " + seconds + "s ";
-        }
-       }, 1000);
-     }
-     else
-     {
-         // Set the date or time we're counting down to 72 hrs
-        var countDownDate = Date.parse(document.getElementById('timer_enable').dataset.startTime) + ((24)*60*60*1000);
-        starttimer2 = setInterval(function() 
-                                   {
-           var now = new Date().getTime();
-           // Find the distance between now an the count down date
-           var distance = countDownDate - now;
-
-           setCookie(cookiename, distance, 30);
-           // Time calculations for days, hours, minutes and seconds
-           var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-           var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-           var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-           var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-           document.getElementById("countdown_timer").innerHTML = hours + "h : " + minutes + "m : " + seconds + "s ";
-		   if (distance < 0) 
-           {
-             clearInterval(starttimer2);
-			 start74inital();
-           }
-           
-         }, 1000);
-     }
-  }
-  else
-  {
-  	clearInterval(starttimer2);
+    var _isannounmentBar = $('#timer_enable').val();
+    var starttimer1,starttimer2;
+    if(_isannounmentBar == 'true') // if settings enabled 
+    {
+    $('.timer_announcementbar').show();
+    var oldTime = Date.parse(document.getElementById('timer_enable').dataset.startTime);
+    if(isNaN(oldTime) == false)
+    {
+    var countDownDate = new Date().getTime() + oldTime;
+    starttimer1 = setInterval(function() {  
+    var now = new Date().getTime();
+    var distance = oldTime - now;
+    setCookie(cookiename, distance, 30);
+    // in the cookie
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    if (distance < 0) 
+    {
+    clearInterval(starttimer1);
+    start74fromcookie();
+    }else{
+    document.getElementById("countdown_timer").innerHTML =  hours + "h : " + minutes + "m : " + seconds + "s ";
+    }
+    }, 1000);
+    }
+    else
+    {
+    // Set the date or time we're counting down to 72 hrs
+    var countDownDate = Date.parse(document.getElementById('timer_enable').dataset.startTime) + ((24)*60*60*1000);
+    starttimer2 = setInterval(function() 
+    {
+    var now = new Date().getTime();
+    // Find the distance between now an the count down date
+    var distance = countDownDate - now;
+    setCookie(cookiename, distance, 30);
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    document.getElementById("countdown_timer").innerHTML = hours + "h : " + minutes + "m : " + seconds + "s ";
+    if (distance < 0) 
+    {
+    clearInterval(starttimer2);
+    start74inital();
+    }
+    }, 1000);
+    }
+    }
+    else
+    {
+    clearInterval(starttimer2);
     clearInterval(starttimer1);
     clearInterval(starttimer742);
     clearInterval(starttimer741)
     delete_cookie(cookiename);
-  }
-})
-
-
-
+    }
+    })
     $(document).ready(function(){
     var uniqueLi = {};
-      var uniqueli_footer = {};
+    var uniqueli_footer = {};
     //filter repeated country names in currency selection.
-     
-      $('#mob_currency_drop').find('.currency-list').addClass('currency_mobile_drop');
-      
-      $('#country-list-footer li').each(function()
-		{
-      	 var thisVal_footer = $(this).text();
+    $('#mob_currency_drop').find('.currency-list').addClass('currency_mobile_drop');
+    $('#country-list-footer li').each(function()
+    {
+    var thisVal_footer = $(this).text();
+    if ( !(thisVal_footer in uniqueli_footer) ) {
+    uniqueli_footer[thisVal_footer] = "";
+    } else {
+    $(this).remove();
+    }
+    })
+    if($(window).width() < 768)
+    {
+    var uniqueli_mob = {};
+    $('.currency_mobile_drop li').each(function(){
+    var thisVal_mob = $(this).text();
+    if ( !(thisVal_mob in uniqueli_mob) ) {
+    uniqueli_mob[thisVal_mob] = "";
+    } else {
+    $(this).remove();
+    }
+    })
+    }else{
+    $('#country-list-header li').each(function(){
+    var thisVal = $(this).text();
+    if ( !(thisVal in uniqueLi) ) {
+    uniqueLi[thisVal] = "";
+    } else {
+    $(this).remove();
+    }
+    })
+    }
 
-        if ( !(thisVal_footer in uniqueli_footer) ) {
-          uniqueli_footer[thisVal_footer] = "";
-        } else {
-          $(this).remove();
-        }
-      })
-      
-      if($(window).width() < 768)
-      {
-        var uniqueli_mob = {};
-      $('.currency_mobile_drop li').each(function(){
-      	 var thisVal_mob = $(this).text();
-
-        if ( !(thisVal_mob in uniqueli_mob) ) {
-          uniqueli_mob[thisVal_mob] = "";
-        } else {
-          $(this).remove();
-        }
-      })
-      
-      }else{
-       $('#country-list-header li').each(function(){
-      	 var thisVal = $(this).text();
-
-        if ( !(thisVal in uniqueLi) ) {
-          uniqueLi[thisVal] = "";
-        } else {
-          $(this).remove();
-        }
-      })
-      
-      }
-      
     /*  var cartContents = fetch(window.Shopify.routes.root + 'cart.js')
-  .then(response => response.json())
-  .then(data => { 
+    .then(response => response.json())
+    .then(data => { 
     console.log(data);
     return data });
-      */
+    */
+
+    //$('#cart_icon_header').click(function(e){
+    $(document).on('click','#cart_icon_header',function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('cart open');
+    if(!$('body').hasClass('template-cart'))
+    {
+
+    var cartContents = fetch(window.Shopify.routes.root + 'cart.js')
+    .then(response => response.json())
+    .then(data => { 
+
+    if(data.items.length == 0)
+    {
+    $('#cart_popup_links').hide();
+    $('.cart_emptymsg').show()
+    $('.cart_bg').show();
+    }
+
+    if(data.items.length > 0){
+    $('.cart_bg').show();
+    $('.cart_popup_items').empty();
+    $('.cart_emptymsg').hide()
+    $('#cart_popup_links').show();
+   let limit = $('.shipping_limit').val(); 
+      let freeshipping_limit = limit ? parseInt(limit) : 0;
+      let bal_limit = freeshipping_limit - data.total_price;
       
-      //$('#cart_icon_header').click(function(e){
-        $(document).on('click','#cart_icon_header',function(e){
-        e.preventDefault();
+        let moneyformat = theme.Shopify.formatMoney(bal_limit,theme.money_format_with_code_preference);
+      bal_limit > 0 ? $('.freeshipping_msg').html(`You're ${moneyformat} away from FREE EXPRESS Shipping`) : $('.freeshipping_msg').html(`Congratulations You've got FREE EXPRESS Shipping`);
+      
+    data.items.forEach(function(item,index){
+    var cart_img = '<img class="ajax-cart-item__image" src="' + item.image + '" >';
+    var cart_title = '<p class="cart-product__content__title">' + item.title + '</p>';
+    var cart_price = '<p class="cart-product__content__price">' + theme.Shopify.formatMoney(item.line_price, '{{ shop.money_with_currency_format }}') + '</p>';
+    var cart_variant ='<p class="cart-product__content__meta">' + item.title + '</p>';
+    var imgs = '<div class="cart-product__image">' + cart_img + '</div>';
+    var productInfo = cart_title + cart_price + cart_variant;
+    var parent_info ='<div class="cart-product__content">' + productInfo + '</div>';
+    var cart_items ='<div class="cart-product">' + imgs + parent_info + '</div>';
+    $('.cart_popup_items').append(cart_items);
+    })
+    return data
+    }
+    });
+    }
+    })
+    $('.close').click(function(){
+    $('.cart_bg').hide();
+    })
+    window.onclick = function(event) {
+    if (event.target == $('#cart_item_bg')) {
+    $('.cart_bg').hide();
+    }
+    }
+      $('.cart-content').find('.close').click(function(){
+        $('body').removeClass('modal-active');
+        $('body').removeClass('scrolled-down');
+      })
+       $('#cart_item_bg').click(function(e){
         e.stopPropagation();
-        console.log('cart open');
-        if(!$('body').hasClass('template-cart'))
-        {
-      	
-         var cartContents = fetch(window.Shopify.routes.root + 'cart.js')
-        .then(response => response.json())
-        .then(data => { 
-          
-          if(data.items.length == 0)
-          {
-            $('#cart_popup_links').hide();
-          	$('.cart_emptymsg').show()
-             $('.cart_bg').show();
-          }
-          
-          if(data.items.length > 0){
-             $('.cart_bg').show();
-          	$('.cart_popup_items').empty();
-            $('.cart_emptymsg').hide()
-            $('#cart_popup_links').show();
-            
-            data.items.forEach(function(item,index){
-             
-            	var cart_img = '<img class="ajax-cart-item__image" src="' + item.image + '" >';
-              
-              var cart_title = '<p class="cart-product__content__title">' + item.title + '</p>';
-              var cart_price = '<p class="cart-product__content__price">' + theme.Shopify.formatMoney(item.line_price, '{{ shop.money_with_currency_format }}') + '</p>';
-              var cart_variant ='<p class="cart-product__content__meta">' + item.title + '</p>';
-              
-              var imgs = '<div class="cart-product__image">' + cart_img + '</div>';
-              
-              var productInfo = cart_title + cart_price + cart_variant;
-              var parent_info ='<div class="cart-product__content">' + productInfo + '</div>';
-              	
-              
-              var cart_items ='<div class="cart-product">' + imgs + parent_info + '</div>';
-              $('.cart_popup_items').append(cart_items);
-            })
-          return data
-          }
         
-        });
-      }
+        $('body').removeClass('modal-active');
+        $('body').removeClass('scrolled-down');
+        $('#cart_item_bg').hide();
       })
-      
-      $('.close').click(function(){
-      $('.cart_bg').hide();
-      
-      })
-      
-      window.onclick = function(event) {
-  		if (event.target == $('#cart_item_bg')) {
-    	$('.cart_bg').hide();
-  	}
-	}
     })
   </script>
+
+  <script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+   /*if(document.querySelector('img.removelazyload'))document.querySelector('img.removelazyload').removeAttribute('loading');*/
+   var myStringArray = document.querySelectorAll('img.removelazyload');
+   var arrayLength = myStringArray.length;
+   if(arrayLength>0){
+   for (var i = 0; i < arrayLength; i++) { 
+    myStringArray[i].removeAttribute('loading');
+    }}});
+  </script>
+
   <!-- TrustBox script -->
-<script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
-<!-- End TrustBox script -->
+  <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+  <!-- End TrustBox script -->
+  <script>
+    $(document).ready(function(){
+      var location_name = window.location.href;
+     
+      var collection_name = '/collections';
+      {% if settings.redirect_enable and settings.redirect_link != blank %}
+      var default_link = '{{ settings.default_link }}';
+      {% endif %}
+       {% if settings.redirect_enable and settings.redirect_link != blank %}
+         var redirect_link = '{{ settings.redirect_link }}'
+      {% endif %}
+      var location_site = window.location;
+      
+      if(location_site.pathname == "/collections/" || location_site.pathname == "/collections"){
+        window.location.href=window.location.origin;
+       
+      }
+      
+      {% if settings.redirect_enable and settings.redirect_link != blank %}
+       if(default_link && location_site.pathname == default_link)
+        {
+           window.location.href = window.location.origin + redirect_link ? redirect_link:'';
+        }
+      {% endif %}
+    })
+  </script>
 </html>

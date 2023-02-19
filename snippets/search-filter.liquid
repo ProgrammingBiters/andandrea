@@ -305,8 +305,68 @@
     {% endif %}
 
     <div class="product-list-container{% if section.settings.filter_mode == "sidebar" and show_filters == true %} product-list-container--with-sidebar{% endif %}" data-infinite-scroll-container>
+      
+<!-- -------free product-----------------    -->
+<div class="product-list cf product-list--rows  mob-two-col grid--uniform" style="position:relative;">
+  {% assign show_popup = true %}
+   {% for block in section.blocks %}
+      {% if block.type == 'ourproduct-slide' %}
+         {% for variant in product.variants %}
+          {% if  variant.inventory_quantity > 0 %}
+            {% assign show_popup = false %}
+          {% endif %}
+          {% endfor %}
+     {% assign product =  all_products[block.settings.product_main] %}
+    {% assign current_variant = product.selected_or_first_available_variant %}
+  <div class="product-block cc-product-block on-sale hover-image column quarter cc-initialized" data-loop-index="1">
+   
+  <div class="product-block__inner">
+    <div class="image image--hover-second ">
+    <a data-cc-animate-click="" class="image-inner" href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+    <img src="{{ product.featured_image | img_url:'master' }}" alt="" class="rimage__image">
+        {% if current_variant.inventory_quantity <= 0 %}
+          <span class="product-label unavailable">
+          <span>Sold out</span>
+          </span>
+        {% endif %}
+     </a>
+    </div>
+        <a data-cc-animate-click href="{{ product_url }}" class="caption upper">
+      
+        <div class="grid__title-flex">
+        <span class="title">{{ product.title }}</span>
+         {% if current_variant.available %}
+        {% if current_variant.inventory_quantity > 0 and current_variant.inventory_quantity <= 3 %}
+        <p>HURRY ONLY {{ current_variant.inventory_quantity }} LEFT!!!</p>
+        {% endif %}
+           {% endif %}
+      </div>
+          
+      {% if show_vendor %}
+        <span class="vendor">{{ product.vendor }}</span>
+      {% endif %}
 
-       {% capture active_filters_html %}
+      <div class="price">
+        <span class="theme-money">{{ product.price | money }}</span>
+        {% render 'unit-price', variant: cheapest_variant %}
+      </div>
+    </a>
+  </div>
+</div>
+{% endif %}
+     {% endfor %}
+
+ {% if show_popup == true %}
+      <div class="sold-out-popup">
+                <div class="popup-inner">
+                  {{ section.settings.popup-text }}
+                </div>
+              </div>
+        {% endif %}
+
+</div>
+<!-- -------free product end-----------------    -->
+      {% capture active_filters_html %}
         <div class="active-filter-controls-container">
           <ul class="active-filter-controls">
             <li class="active-filter-controls__clear-left">

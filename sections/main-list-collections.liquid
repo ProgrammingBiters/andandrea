@@ -23,7 +23,7 @@
 
     {%- paginate collections by section.settings.collections_per_page -%}
       <div data-cc-animate class="product-list product-list--{{ section.settings.layout }} {% if section.settings.layout == 'columns' %}jiggly-split dynamic-col-{{ section.settings.grid }}{% else %}grid--uniform{% endif %}">
-        {%- for collection in collections -%}
+        {%- for collection in collections -%}{% comment %}EasylockdownFilterBegin{% endcomment %}{% capture easylockdownFilter %}{% render 'easylockdown_filter_collections' with collection, easylockdownRender: true, easylockdownItemSelectorOff: easylockdownItemSelectorOff %}{% endcapture %}{% assign easylockdownFilter = easylockdownFilter | strip %}{% if easylockdownFilter == 'continue' %}{% continue %}{% else %}{{ easylockdownFilter }}{% endif %}{% comment %}EasylockdownFilterEnd{% endcomment %}
           {%- render 'collection-block', collection: collection, product_class: product_class, i: forloop.index -%}
         {%- endfor -%}
       </div>
