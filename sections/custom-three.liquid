@@ -1,0 +1,214 @@
+
+<style>
+  
+.paddingBlock {
+	padding: 20px 0;
+}
+
+.eqWrap {
+	display: flex;
+}
+
+.eq {
+	padding: 10px;
+}
+
+.eq:nth-of-type(odd) {
+	background: yellow;
+}
+
+.eq:nth-of-type(even) {
+	background: lightblue;
+}
+
+.equalHW {
+	flex: 1;
+      padding: 50px 70px;
+
+}
+
+.butncustm a {
+    text-align: center;
+}
+  .equalHW.eq h4.heading {
+    text-align: left;
+}
+.equalHW.eq .butncustm a {
+    margin-left: 0;
+    padding: 0;
+    display: inline-block;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    max-width: 280px;
+}
+.svgiconn svg {
+    width: 92px;
+    height: auto;
+}
+  .equalHW .subheading{
+  max-width:255px;
+  }
+  div#svg-1653470302cf8da6f2-2 svg {
+    width: 40px !important;
+}
+
+  div#background--1653470302cf8da6f2-2 .butncustm a {
+    background-color: #FF57BB;
+}
+  div#background--1653470302cf8da6f2-2 .butncustm a:hover{
+      background-color: #fff;
+    color: #e31d93;
+  }
+</style>
+
+           
+
+<div class="paddingBlock">
+  
+  <div class="equalHWrap eqWrap">
+    {% for block in section.blocks%}
+    <div class="equalHW eq" id="background--{{ block.id }}">
+      <style>
+        #background--{{ block.id }}{
+        background:{{ block.settings.bgcl }};
+        }
+        #heading--{{ block.id }},#subhead-{{ block.id }}{
+        color:{{ block.settings.itemhed }};
+        }
+        
+      
+      </style>
+      <h4 class="heading" id="heading--{{ block.id }}">{{block.settings.storenme}}</h4>
+      <p class="subheading" id="subhead-{{ block.id }}">{{block.settings.strlc}}</p>
+      <div class="svgiconn" id="svg-{{ block.id }}">{{block.settings.svgic}}</div>
+      <div class="button-row inherit-colors butncustm " data-cc-animate="cc-fade-in-up" data-cc-animate-delay="0.3s" style="">
+          <a data-cc-animate-click="" class="
+            button-custom 
+            button alt" href="{{block.settings.button1_link}}">
+            {{block.settings.namelin}}
+          </a>
+
+        </div>
+    </div>
+    {%endfor%}
+   
+  </div>
+</div>            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% schema %}
+{
+"name": "Custom three",
+"max_blocks": 3,
+"settings": [
+
+
+
+
+],
+
+"blocks":[
+{
+"type": "item",
+"name": "item",
+
+"settings":[
+
+   
+    {
+   "type": "text",
+   "id": "storenme",
+   "label": "Heading",
+    "default": "Heading"
+     },
+ {
+   "type": "textarea",
+   "id": "strlc",
+   "label": "Detail",
+    "default": "Detail"
+     },
+  {
+   "type": "html",
+   "id": "svgic",
+   "label": "SVG Icon html"
+    
+     },
+{
+   "type": "text",
+   "id": "namelin",
+   "label": "Link Name",
+    "default": "link"
+     },
+{
+          "type": "url",
+          "id": "button1_link",
+          "label": "Button Link"
+        },
+{
+        "type": "color",
+        "id": "bgcl",
+        "label": "section background Color",
+        "default": "#f5f5f5"
+      },
+{
+        "type": "color",
+        "id": "itemhed",
+        "label": "item Heading and content Color",
+        "default": "#000"
+      }
+
+
+]
+
+}
+],
+ "presets": [
+      {
+        "name": "Custom Three",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "item"
+          },
+          {
+            "type": "item"
+          },
+          {
+            "type": "item"
+          }
+        
+        ]
+      }
+    ]
+
+
+}
+{% endschema %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

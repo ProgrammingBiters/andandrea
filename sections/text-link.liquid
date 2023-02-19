@@ -1,0 +1,47 @@
+<div class="text_links">
+  <div class="text_link-inner">
+    {%- for block in section.blocks -%}
+      {%- if block.settings.text != blank -%}
+      <div class="text_list">
+        {%- if block.settings.text_link != blank -%}
+        <a href="{{ block.settings.text_link }}">
+        {%- endif -%}
+          <p>{{ block.settings.text }}</p>
+        {%- if block.settings.text_link != blank -%}
+        </a>
+        {%- endif -%}
+      </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Text Link",
+    "settings": [
+	],
+	"blocks": [
+	  {
+		"type": "link",
+		"name": "Link",
+		"settings": [
+		  {
+			"type": "richtext",
+			"id": "text",
+			"label": "Text"
+		  },
+		  {
+			"type": "url",
+			"id": "text_link",
+			"label": "Link"
+		  }
+		]
+	  }
+	],
+	"presets": [
+	  {
+		"name": "Text Link"
+	  }
+	]
+  }
+{% endschema %}

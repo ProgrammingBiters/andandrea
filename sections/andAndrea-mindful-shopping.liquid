@@ -1,0 +1,225 @@
+<style>
+  #minful-shopping-section {
+    padding-bottom: 92px;
+  }
+  #minful-shopping-section .sect-title {
+    font-size: 40px;
+    font-weight: 700;
+    color: #000;
+    max-width: 895px;
+    width: 100%;
+    display: block;
+    margin: 0 auto 48px;
+    line-height: 1;
+  }
+  #minful-shopping-section .sect-row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #minful-shopping-section .sect-row .col1 {
+    width: 48%;
+  }
+  #minful-shopping-section .sect-row .col2 {
+    width: 52%;
+    position: relative;
+  }
+  #minful-shopping-section .sect-row .col2::before {
+    content: '';
+    background-image: url(//cdn.shopify.com/s/files/1/0763/7883/files/brushedPaint.png?v=1658535225);
+    background-size: 100% 100%;
+    width: 388px;
+    height: 197px;
+    position: absolute;
+    bottom: -70px;
+    z-index: 2;
+    display: block;
+    right: -18px;
+  }
+  #minful-shopping-section .color-block {
+    padding: 70px;
+    width: 100%;
+  }
+  #minful-shopping-section .color-block-1 {
+  background-color: #F069C8;
+  }
+  #minful-shopping-section .color-block-2 {
+    background-color: #C276E6;
+  }
+  #minful-shopping-section .color-block-3 {
+    background-color: #E21C93;
+  }
+  #minful-shopping-section .color-block h3 {
+    text-align: left;
+    font-size: 18px;
+    line-height: 25px;
+    font-weight: 700;
+    color: #fff;
+  }
+  #minful-shopping-section .color-block p {
+    text-align: left;
+    font-size: 18px;
+    line-height: 25px;
+    color: #fff;
+  }
+
+  @media screen and (max-width:767px){
+    #minful-shopping-section::before {
+      content: '';
+      width: 100%;
+      height: 200px;
+      display: block;
+      position: absolute;
+      bottom: 0;
+      background-color: #f1e4e2;
+    }
+    #minful-shopping-section {
+      padding-bottom: 92px;
+      position: relative;
+    }
+    #minful-shopping-section .container {
+      width: 100%;
+    }
+    #minful-shopping-section .sect-title {
+      font-size: 28px;
+      max-width: 350px;
+      margin: 0 auto 28px;
+    }
+    #minful-shopping-section .sect-row .col1 {
+      width: 100%;
+    }
+    #minful-shopping-section .color-block {
+      padding: 31px 50px 20px;
+      width: 100%;
+    }
+    #minful-shopping-section .sect-row .col2 {
+      width: 100%;
+    }
+    #minful-shopping-section .sect-row .col2::before {
+    width: 292px;
+    height: 125px;
+    bottom: -58px;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+  }
+  }
+</style>
+
+<div id="minful-shopping-section">
+  <div class="container">
+    <h2 class="sect-title">
+      {{ section.settings.section_title }}
+    </h2>
+
+    <div class="sect-row">
+      <div class="col col1">
+        <div class="color-block color-block-1">
+          <h3>
+            {{ section.settings.colorbox1_title }}
+          </h3>
+          <p>
+            {{ section.settings.colorbox1_paragraph }}
+          </p>
+        </div>
+
+        <div class="color-block color-block-2">
+          <h3>
+            {{ section.settings.colorbox1_title2 }}
+          </h3>
+          <p>
+            {{ section.settings.colorbox1_paragraph2 }}
+          </p>
+        </div>
+
+        <div class="color-block color-block-3">
+          <h3>
+            {{ section.settings.colorbox1_title3 }}
+          </h3>
+          <p>
+            {{ section.settings.colorbox1_paragraph3 }}
+          </p>
+        </div>
+      </div>
+
+      <div class="col col2">
+        <img src="{{ section.settings.sec_ftr_img | img_url: '' }}" alt="" class="ftr-img">  
+      </div>
+    </div>
+  </div>
+</div>
+  
+  
+  {% schema %}
+      {
+          "name": "andAndrea Mindful Section",
+          "class": "custom-testimonial-section",
+          "settings": [
+              {
+                "type": "text",
+                "id": "section_title",
+                "label": "Section Title",
+                "default": "How it works"
+              },
+              {
+                "type": "image_picker",
+                "id": "sec_ftr_img",
+                "label": "Feature Image"
+              },
+              {
+                "type": "header",
+                "content": "Color Box 1"
+              },
+              {
+                "type": "text",
+                "id": "colorbox1_title",
+                "label": "Color Box Title",
+                "default": "Better for you and our planet"
+              },
+              {
+                "type": "textarea",
+                "id": "colorbox1_paragraph",
+                "label": "Color Box Paragraph",
+                "default": "Our collection is only available for select times throughout the year. Be inspired 365 days — shop when your wardrobe needs quality pieces you will love."
+              },
+              {
+                "type": "header",
+                "content": "Color Box 2"
+              },
+              {
+                "type": "text",
+                "id": "colorbox1_title2",
+                "label": "Color Box Title",
+                "default": "Better for you and our planet"
+              },
+              {
+                "type": "textarea",
+                "id": "colorbox1_paragraph2",
+                "label": "Color Box Paragraph",
+                "default": "Our collection is only available for select times throughout the year. Be inspired 365 days — shop when your wardrobe needs quality pieces you will love."
+              },
+              {
+                "type": "header",
+                "content": "Color Box 3"
+              },
+              {
+                "type": "text",
+                "id": "colorbox1_title3",
+                "label": "Color Box Title",
+                "default": "Better for you and our planet"
+              },
+              {
+                "type": "textarea",
+                "id": "colorbox1_paragraph3",
+                "label": "Color Box Paragraph",
+                "default": "Our collection is only available for select times throughout the year. Be inspired 365 days — shop when your wardrobe needs quality pieces you will love."
+              }
+          ],
+          "presets":[
+              {
+              "name":"andAndrea Mindful Section",
+              "category":"Custom"
+              }
+          ]
+      }
+  {% endschema %}
+  

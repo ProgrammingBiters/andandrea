@@ -1,0 +1,154 @@
+<style>
+  #feature-image-section {
+    position: relative;
+    margin-bottom: 80px;
+  }
+  #feature-image-section .feature-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-left: -16px;
+    margin-right: -16px;
+  }
+  #feature-image-section .featureIMG {
+    padding: 5px;
+    background-color: #D9D9D9;
+  }
+  #feature-image-section .sec-title-image {
+    position: absolute;
+    bottom: -110px;
+    left: 0;
+    right: 0;
+    display: block;
+    margin: 0 auto;
+    max-width: 644px;
+    height: auto;
+    width: 100%;
+    z-index: 10;
+  }
+  #shopify-section-template--15346044600472__1657030913b3512f8f {
+    position: relative;
+    z-index: 40;
+    margin-top: -240px;
+  }
+
+  
+    @media screen and (max-width: 1680px){
+  
+    }
+    
+    @media screen and (max-width: 1024px){
+      #custom-testimonial-section {
+        padding: 50px 0;
+      }
+    }
+    
+    @media screen and (max-width: 767px){
+      #feature-image-section .feature-content .swiper {
+        padding: 0 60px;
+      }
+      #feature-image-section .featureIMG {
+        padding: 0;
+      }
+    }
+  </style>
+  
+  <!-- Swiper -->
+<div id="feature-image-section">
+    <div class="container">
+
+        {% if section.settings.section_title != '' %}
+        <h2 class="sec-title">
+            {{section.settings.section_title}}
+        </h2>  
+        {% endif %}
+        
+
+        {% if section.settings.image_heading != '' %}
+            <img src="{{ section.settings.image_heading | img_url: '' }}" class="sec-title-image"/>
+        {% endif %}
+
+        <div class="feature-content">
+          <div class="swiper myFtrIMG2">
+            <div class="swiper-wrapper">
+              {% for block in section.blocks %}
+              {% case block.type %}
+              {% when 'image' %}
+              <div class="swiper-slide">
+                <div class="featureIMG">
+                  <img src="{{ block.settings.testimonial_image | img_url: '' }}" class="testi-author">
+                </div>
+              </div>
+              {% endcase %}
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.3.1/swiper-bundle.min.js"></script>
+<!-- Initialize Swiper -->
+<script>
+  var swiper = new Swiper(".myFtrIMG2", {
+    slidesPerView: 1,
+    spaceBetween: 10,
+    loop: true,
+    breakpoints: {
+      640: {
+        slidesPerView: 1,
+        spaceBetween: 16,
+      },
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 16,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 16,
+      },
+    },//breakpoints
+  });
+</script>
+  
+  {% schema %}
+      {
+          "name": "Custom Image Section",
+          "class": "custom-image-section",
+          "settings": [
+              {
+                "type": "text",
+                "id": "section_title",
+                "label": "Section Title",
+                "default": "Section Title"
+              },
+              {
+                "type": "image_picker",
+                "id": "image_heading",
+                "label": "Image Heading"
+              }
+              
+          ],
+          "blocks": [
+              {
+              "name": "Images",
+              "type": "image",
+              "settings": [
+                  {
+                    "type": "image_picker",
+                    "id": "testimonial_image",
+                    "label": "Image"
+                  }
+                ]
+              }
+          ],
+          "presets":[
+              {
+              "name":"Custom Image Section",
+              "category":"Custom"
+              }
+          ]
+      }
+  {% endschema %}
+  

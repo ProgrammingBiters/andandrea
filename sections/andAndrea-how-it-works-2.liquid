@@ -1,0 +1,251 @@
+<style>
+  #how-itworks-section2 {
+    text-align: center;
+    padding: 0 0 50px 0;
+  }
+  #how-itworks-section2 .sec-title {
+    font-size: 40px;
+    font-weight: 700;
+    color: #000;
+    max-width: 895px;
+    width: 100%;
+    display: block;
+    margin: 0 auto 12px;
+    line-height: 1;
+  }
+  #how-itworks-section2 .sec-title span {
+    color: #E31D93;
+  }
+  #how-itworks-section2 .section-Description {
+    max-width: 402px;
+    width: 100%;
+    margin: 0 auto 32px;
+    color: #000;
+    font-size: 16px;
+    line-height: 22px;
+  }
+  #how-itworks-section2 .booking-section {
+    position: relative;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 -34px;
+  }
+  #how-itworks-section2 .appointment-block {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 41px 38px 20px;
+    max-width: 345px;
+    min-height: 280px;
+    background-color: #fff;
+    box-shadow: 0 0 12px 0 rgba(0,0,0,0.2);
+    margin-right: 50px;
+    border-radius: 11px;
+  }
+  #how-itworks-section2 .appointment-block:last-child {
+    margin-right: 0;
+  }
+
+  #how-itworks-section2 .appointment-image img {
+    margin-bottom: 20px;
+  }
+
+  #how-itworks-section2 .appointment-contents {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  #how-itworks-section2 .appointment-block p {
+    font-size: 16px;
+    line-height: 22px;
+    color: #000;
+  }
+
+  #how-itworks-section2 .appointment-contents a {
+    font-size: 18px;
+    padding: 5px;
+    color: #000000;
+    font-weight: 400;
+  }
+
+  #how-itworks-section2 .appointment-contents a i {
+    margin-left: 8px;
+  }
+
+  #how-itworks-section2 .appointment-contacts {
+    margin: 40px auto 0;
+  }
+
+  @media screen and (max-width:1024px){
+    #how-itworks-section2 {
+      padding: 50px 0;
+    }
+    #how-itworks-section2 .booking-section {
+      padding: 0;
+      flex-wrap: wrap;
+    }
+    #how-itworks-section2 .appointment-block {
+      width: 50% !important;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 50px 33px 0;
+    }
+    .appointment-contacts div {
+      margin-bottom: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  @media screen and (max-width:767px){
+    #how-itworks-section2 {
+      text-align: center;
+      padding: 32px 0 0;
+    }
+    #how-itworks-section2 .appointment-contacts {
+      margin: 48px auto 0;
+    }
+    #how-itworks-section2 .sec-title {
+      font-size: 28px;
+      line-height: 35px;
+      max-width: 358px;
+      margin: 0 auto 18px;
+    }
+    #how-itworks-section2 .booking-section {
+      max-width: 358px;
+      flex-wrap: wrap;
+      width: 100%;
+      margin: 0 auto;
+    }
+    #how-itworks-section2 .appointment-image img {
+      margin-bottom: 20px;
+    }
+    #how-itworks-section2 .appointment-block {
+      padding: 45px 30px;
+      margin: 0 0 42px;
+      max-width: 345px;
+      width: 100% !important;
+    }
+    #how-itworks-section2 .appointment-block:last-child {
+      margin: 0;
+    }
+    #how-itworks-section2 .appointment-contents a {
+      font-size: 16px;
+      padding: 5px;
+      font-weight: 400;
+      color: #000;
+    }
+    
+  }
+</style>
+  
+  <!-- Swiper -->
+  <div id="how-itworks-section2">
+      <div class="container">
+        
+        <h2 class="sec-title">
+          {{section.settings.section_title}}
+        </h2>
+
+        <p class="section-Description">
+          {{section.settings.section_description}}
+        </p>
+        
+        <div class="booking-section">
+          {% for block in section.blocks %}
+          {% case block.type %}
+          {% when 'blurb' %}
+          	<div class="appointment-block">
+              <div class="appointment-image">
+                <img src="{{ block.settings.feature_image | img_url: '' }}" class="testi-author">
+              </div>
+
+              <div class="appointment-contents">
+                <p>{{ block.settings.button_label }}</p>
+              </div>
+            </div>
+          {% endcase %}
+          {% endfor %}
+        </div>
+  
+          
+          <div class="appointment-contacts">
+              {% if section.settings.section_phone_number != '' %}
+              <div>
+                  <img src="https://cdn.shopify.com/s/files/1/1357/9371/files/callIconBlue.png?v=1656704278" alt=""> {{ section.settings.section_phone_number }}
+              </div>
+              {% endif %}
+              {% if section.settings.section_email_add != '' %}
+              <div>
+                  <img src="https://cdn.shopify.com/s/files/1/1357/9371/files/mailIconBlue.png?v=1656704272" alt=""> {{ section.settings.section_email_add }}
+              </div>
+              {% endif %}
+          </div>
+    </div>
+  </div>
+  
+  
+  {% schema %}
+      {
+          "name": "andAndrea how it works",
+          "class": "custom-testimonial-section",
+          "settings": [
+              {
+                "type": "text",
+                "id": "section_title",
+                "label": "Section Title",
+                "default": "How it works"
+              },
+              {
+                "type": "text",
+                "id": "section_description",
+                "label": "Section Description",
+                "default": "Be the first to know about our next Popup Party™ and gain exclusive access to newly released pieces."
+              },
+              {
+                  "type": "text",
+                  "id": "section_phone_number",
+                  "label": "Phone Number",
+                  "default": "123402345001"
+              },
+              {
+                  "type": "text",
+                  "id": "section_email_add",
+                  "label": "Email Address",
+                  "default": "members@huevine.com"
+              }
+          ],
+          "blocks": [
+              {
+              "name": "Blurb",
+              "type": "blurb",
+              "settings": [
+                  {
+                    "type": "image_picker",
+                    "id": "feature_image",
+                    "label": "Image"
+                  },
+                  {
+                      "type": "text",
+                      "id": "button_label",
+                      "label": "Blurb Content",
+                      "default": "Testimonial Name"
+                  }
+                ]
+              }
+          ],
+          "presets":[
+              {
+              "name":"andAndrea how it works 2",
+              "category":"Custom"
+              }
+          ]
+      }
+  {% endschema %}
+  

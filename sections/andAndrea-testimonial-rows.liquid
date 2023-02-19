@@ -1,0 +1,111 @@
+<style>
+  #andAndres-testimonials {
+    padding: 50px 0;
+  }
+  #andAndres-testimonials .sec-title {
+    font-size: 40px;
+    font-weight: 700;
+    color: #000;
+    max-width: 895px;
+    width: 100%;
+    display: block;
+    margin: 0 auto 48px;
+    line-height: 1;
+  }
+  #andAndres-testimonials .testimonial-row {
+    max-width: 993px;
+    width: 100%;
+    margin: 22px auto 0;
+    background-color: #fff;
+    border-radius: 11px;
+    box-shadow: 0 0 30px 0 rgba(0,0,0,0.1);
+    padding: 50px;
+    text-align: center;
+  }
+  #andAndres-testimonials .testi-content {
+    font-size: 19px;
+    line-height: 29px;
+    color: #000;
+    font-style: italic;
+  }
+
+  @media screen and (max-width:767px) {
+    #andAndres-testimonials {
+      padding: 50px 0 30px 0;
+    }
+    #andAndres-testimonials .sec-title {
+      font-size: 28px;
+      max-width: 292px;
+      margin: 0 auto 30px;
+    }
+    #andAndres-testimonials .testimonial-row {
+      max-width: 345px;
+      padding: 30px;
+      text-align: left;
+    }
+    #andAndres-testimonials .testi-content {
+      font-size: 16px;
+      line-height: 29px;
+    }
+  }
+</style>
+
+<div id="andAndres-testimonials">
+  <div class="container">
+    <h2 class="sec-title">
+      {{ section.settings.section_title}}
+    </h2>
+    
+    {% for block in section.blocks %}
+    {% case block.type %}
+    {% when 'testimonial' %}
+    <div class="testimonial-row">
+      <img src="{{ block.settings.testimonial_star | img_url: '' }}" alt="" class="testi-stars">
+      <p class="testi-content">
+        {{ block.settings.testimonial_content }}
+      </p>
+    </div>
+    {% endcase %}
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "andAndrea Testimonials",
+    "class": "andandrea-testimonials",
+    "settings": [
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": "Section Title",
+        "default": "section title"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "testimonial",
+        "name": "Testimonials",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "testimonial_star",
+            "label": "Testimonial Stars"
+          },
+          {
+            "type": "textarea",
+            "id": "testimonial_content",
+            "label": "Testimonial Content",
+            "default": "testimonial Contetnt"
+          }
+        ]
+      }
+    ],
+    "presets":[
+      {
+        "name":"andAndrea Testimonials",
+        "category":"Custom"
+      }
+    ]
+  }
+{% endschema %}

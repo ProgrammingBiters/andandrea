@@ -1,0 +1,112 @@
+<style>
+  #big-cta-section{
+    background-image: url('{{ section.settings.section_background_image | img_url:'' }}');
+      min-height: 469px;
+      display: flex;
+      align-items: center;
+      background-size: cover;
+      }
+  #big-cta-section .content-cont {
+    max-width: 362px;
+    margin-left: auto;
+    margin-right: 100px;
+  }
+  #big-cta-section .sec-title {
+    text-align: left;
+    font-size: 40px;
+    line-height: 56px;
+    color: #000;
+    font-weight: 700;
+  }
+  #big-cta-section .content-cont p {
+    font-size: 16px;
+    line-height: 24px;
+    color: #000;
+  }
+
+
+
+  @media screen and (max-width: 1024px){
+    #big-cta-section {
+      background-image: url('{{ section.settings.section_background_image_mobile | img_url:'' }}');
+      min-height: 660px;
+      display: flex;
+      align-items: flex-start;
+      background-size: cover;
+      background-position: bottom right;
+      padding: 0 0 50px 0;
+      text-align: center;
+    }
+    #big-cta-section .content-cont {
+      max-width: 362px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #big-cta-section .sec-title {
+      text-align: center;
+      font-size: 28px;
+      line-height: 35px;
+      margin-bottom: 24px;
+    }
+    #big-cta-section .section-btn {
+      max-width: 271px;
+      height: 57px;
+      margin: 0 auto 14px;
+      font-size: 24px;
+      line-height: 32px;
+    }
+    #big-cta-section .content-cont p {
+      margin: 0 auto;
+    }
+  }
+</style>
+
+<div id="big-cta-section">
+    <div class="container">
+        <div class="content-cont">
+            <h2 class="sec-title">
+              {{ section.settings.cta_title }}
+            </h2>
+            <p>
+              {{ section.settings.cta_description }}
+            </p>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+  {
+    "name": "andAndrea I want in",
+    "class": "i-want-in",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "section_background_image",
+        "label": "Background Image"
+      },
+		{
+        "type": "image_picker",
+        "id": "section_background_image_mobile",
+        "label": "Background Image"
+      },
+      {
+        "type": "text",
+        "id": "cta_title",
+        "label": "Section Title",
+        "default": "section title"
+      },
+      {
+        "type": "textarea",
+        "id": "cta_description",
+        "label": "Section Description",
+        "default": "section description"
+      }
+    ],
+	"presets":[
+      {
+      "name":"andAndrea aA Promise",
+      "category":"Custom"
+      }
+    ]
+  }
+{% endschema %}

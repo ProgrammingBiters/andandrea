@@ -1,0 +1,241 @@
+<style>
+  #premium-benefits-section {
+    text-align: center;
+    padding: 0;
+  }
+  #premium-benefits-section .sec-title {
+    font-size: 45px;
+    font-weight: 700;
+    color: #000000;
+    max-width: 895px;
+    width: 100%;
+    display: block;
+    margin: 0 auto;
+  }
+  #premium-benefits-section .sec-title span {
+    color: #E31D93;
+  }
+  #premium-benefits-section .booking-section {
+    position: relative;
+    padding: 0 0 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 -34px;
+  }
+  #premium-benefits-section .appointment-block {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 35px 33px 25px;
+    min-height: 207px;
+  }
+  #premium-benefits-section .appointment-block:first-child {
+    background-color: #F069C8;
+  }
+  #premium-benefits-section .appointment-block:nth-child(2) {
+    background-color: #C276E6;
+  }
+  #premium-benefits-section .appointment-block:last-child {
+    background-color: #E21C93;
+  }
+
+  #premium-benefits-section .appointment-image img {
+    width: auto;
+    height: auto;
+    margin-bottom: 20px;
+  }
+
+  #premium-benefits-section .appointment-contents {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  #premium-benefits-section .appointment-contents a {
+    font-size: 20px;
+    color: #fff;
+    font-weight: 700;
+    padding: 0;
+    min-height: unset;
+    height: unset;
+    line-height: 27px;
+    max-width: 316px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  #premium-benefits-section .appointment-contents a i {
+    margin-left: 8px;
+  }
+
+  #premium-benefits-section .appointment-contacts {
+    margin: 0;
+  }
+
+  @media screen and (max-width:1024px){
+    #premium-benefits-section {
+      padding: 50px 0;
+    }
+    #premium-benefits-section .booking-section {
+      padding: 0;
+      flex-wrap: wrap;
+    }
+    #premium-benefits-section .appointment-block {
+      width: 50% !important;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 50px 33px 0;
+    }
+    .appointment-contacts div {
+      margin-bottom: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  @media screen and (max-width:767px){
+    #premium-benefits-section {
+      text-align: center;
+      padding: 0 0;
+    }
+    #premium-benefits-section .sec-title {
+      font-size: 30px;
+      line-height: 45px;
+      max-width: 358px;
+      margin: 0 auto;
+    }
+    #premium-benefits-section .booking-section {
+      max-width: 100%;
+      flex-wrap: wrap;
+      width: 100%;
+      margin: 0 auto;
+    }
+    #premium-benefits-section .appointment-image img {
+      margin-bottom: 5px;
+      max-width: 50px;
+    }
+    #premium-benefits-section .appointment-block {
+      padding: 13px 15px 13px;
+      width: 100% !important;
+      min-height: 77px;
+    }
+    #premium-benefits-section .appointment-contents {
+      width: 260px;
+      display: flex;
+      justify-content: center;
+      text-align: left;
+      margin-left: 24px;
+      align-items: center;
+    }
+    #premium-benefits-section .appointment-contents a{
+      font-size: 18px;
+      line-height: 24px;
+    }
+    
+  }
+</style>
+  
+  <!-- Swiper -->
+  <div id="premium-benefits-section">
+      <div class="container-fluid">
+        
+        <h2 class="sec-title">
+          {{section.settings.section_title}}
+        </h2>
+        
+        <div class="booking-section">
+          {% for block in section.blocks %}
+          {% case block.type %}
+          {% when 'slide' %}
+          	<div class="appointment-block">
+              <div class="appointment-image">
+                <img src="{{ block.settings.feature_image | img_url: '' }}" class="testi-author">
+              </div>
+
+              <div class="appointment-contents">
+                <a href="{{ block.settings.button_link }}" tabindex="0">{{ block.settings.button_label }}<i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          {% endcase %}
+          {% endfor %}
+        </div>
+  
+          
+          <div class="appointment-contacts">
+              {% if section.settings.section_phone_number != '' %}
+              <div>
+                  <img src="https://cdn.shopify.com/s/files/1/1357/9371/files/callIconBlue.png?v=1656704278" alt=""> {{ section.settings.section_phone_number }}
+              </div>
+              {% endif %}
+              {% if section.settings.section_email_add != '' %}
+              <div>
+                  <img src="https://cdn.shopify.com/s/files/1/1357/9371/files/mailIconBlue.png?v=1656704272" alt=""> {{ section.settings.section_email_add }}
+              </div>
+              {% endif %}
+          </div>
+    </div>
+  </div>
+  
+  
+  {% schema %}
+      {
+          "name": "andAndrea Blurb Section",
+          "class": "custom-testimonial-section",
+          "settings": [
+              {
+                "type": "text",
+                "id": "section_title",
+                "label": "Section Title",
+                "default": "Section Title"
+              },
+              {
+                  "type": "text",
+                  "id": "section_phone_number",
+                  "label": "Phone Number",
+                  "default": "123402345001"
+              },
+              {
+                  "type": "text",
+                  "id": "section_email_add",
+                  "label": "Email Address",
+                  "default": "members@huevine.com"
+              }
+          ],
+          "blocks": [
+              {
+              "name": "Slide",
+              "type": "slide",
+              "settings": [
+                  {
+                    "type": "image_picker",
+                    "id": "feature_image",
+                    "label": "Image"
+                  },
+                  {
+                      "type": "text",
+                      "id": "button_label",
+                      "label": "Author Name",
+                      "default": "Testimonial Name"
+                  },
+                  {
+                      "type": "url",
+                      "id": "button_link",
+                      "label": "Button Link",
+                      "info": "Button Link"
+                  }
+                ]
+              }
+          ],
+          "presets":[
+              {
+              "name":"andAndrea blurb section",
+              "category":"Custom"
+              }
+          ]
+      }
+  {% endschema %}
+  

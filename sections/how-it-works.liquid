@@ -1,0 +1,203 @@
+<style>
+  #how-it-works {
+    padding: 40px 0;
+    position: relative;
+  }
+  #how-it-works .content-area {
+    max-width: 1080px;
+    width: 80%;
+    display: block;
+  }
+  #how-it-works .sec-title {
+    font-size: 45px;
+    line-height: 68px;
+    color: #000;
+    font-weight: 700;
+    max-width: 765px;
+    width: 100%;
+    display: block;
+    margin: 0 auto 32px;
+  }
+  #how-it-works .steps-row {
+    background-color: #FDF3F5;
+    padding: 78px 132px;
+    position: relative;
+  }
+  
+  #how-it-works .steps-row .steps-content {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 80px;
+  }
+  #how-it-works .steps-row .steps-content:nth-child(3) {
+    margin-bottom: 0;
+  }
+  #how-it-works .steps-row .steps-content .step-image {
+    max-width: 246px;
+    width: 100%;
+    margin-right: 32px;
+  }
+  #how-it-works .step-content p {
+    font-size: 16px;
+    color: #000000;
+    font-weight: 500;
+    line-height: 29px;
+    max-width: 424px;
+  }
+  #how-it-works .ftr-images {
+    position: absolute;
+    bottom: 0;
+    right: -280px;
+    max-width: 474px;
+    width: 44%;
+    transform: scale(1.07);
+    transform-origin: bottom left;
+  }
+  
+  @media screen and (max-width:1024px){
+    #how-it-works .steps-row {
+      padding: 50px 132px 50px 24px;
+    }
+    #how-it-works .ftr-images {
+      right: -170px;
+    }
+    #how-it-works .steps-row .steps-content .step-image {
+      max-width: 150px;
+      width: 100%;
+      margin-right: 32px;
+    }
+  }
+  
+  @media screen and (max-width:767px){
+    #how-it-works {
+      padding: 32px 0;
+    }
+    #how-it-works .content-area {
+      width: 100%;
+    }
+    #how-it-works .sec-title {
+      font-size: 30px;
+      line-height: 45px;
+      color: #000;
+      font-weight: 700;
+      max-width: 358px;
+      width: 100%;
+      display: block;
+      margin: 0 auto 32px;
+    }
+    #how-it-works .steps-row {
+      padding: 60px;
+    }
+    #how-it-works .steps-row .steps-content {
+      margin-bottom: 37px;
+      flex-wrap: wrap;
+      text-align: center;
+    }
+    #how-it-works .steps-row .steps-content .step-image {
+      margin-right: auto;
+      margin-left: auto;
+      text-align: center;
+      position: relative;
+      left: -5px;
+    }
+    #how-it-works .steps-row .steps-content .step-content {
+      width: 100%;
+    }
+    #how-it-works .step-content p {
+      max-width: 424px;
+      width: 100%;
+      display: block;
+      margin: 16px auto;
+    }
+    #how-it-works .ftr-images {
+      position: relative;
+      bottom: -60px;
+      right: 0;
+      max-width: 321px;
+      width: 100%;
+      transform-origin: bottom center;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+</style>
+  
+  <!-- Swiper -->
+  <div id="how-it-works">
+      <div class="container-fluid">
+
+        <div class="content-area">
+          <h2 class="sec-title">
+            {{section.settings.section_title}}
+          </h2>
+
+          <div class="steps-row">
+            {% for block in section.blocks %}
+            {% case block.type %}
+            {% when 'step' %}
+            <div class="steps-content">
+              <div class="step-image">
+                <img src="{{ block.settings.steps_image | img_url: '' }}" class="step-image">
+              </div>
+
+              <div class="step-content">
+                <p>{{ block.settings.steps_label }}</p>
+              </div>
+            </div>
+            {% endcase %}
+            {% endfor %}
+            <img src="{{ section.settings.sec_feature_image | img_url:'' }}" alt="" class="ftr-images">
+          </div>  
+        </div>
+
+    </div>
+  </div>
+  
+  
+    
+
+{% schema %}
+    {
+        "name": "How it works",
+        "class": "how it works",
+        "settings": [
+            {
+              "type": "text",
+              "id": "section_title",
+              "label": "Section Title",
+              "default": "Section Title"
+            },
+            {
+                "type": "image_picker",
+                "id": "sec_feature_image",
+                "label": "section_feature_image"
+            }
+        ],
+        "blocks": [
+            {
+            "name": "Steps",
+            "type": "step",
+            "settings": [
+                {
+                  "type": "image_picker",
+                  "id": "steps_image",
+                  "label": "Steps Image"
+                },
+                {
+                    "type": "textarea",
+                    "id": "steps_label",
+                    "label": "Steps Label",
+                    "default": "Steps Lable"
+                }
+              ]
+            }
+        ],
+        "presets":[
+            {
+            "name":"How it works",
+            "category":"Custom"
+            }
+        ]
+    }
+{% endschema %}

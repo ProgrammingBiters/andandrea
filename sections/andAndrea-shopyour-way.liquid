@@ -1,0 +1,126 @@
+<style>
+  #shop-your-way {
+    background-color: #FFCEE8;
+    padding: 60px 0 17px;
+  }
+  #shop-your-way .sec-title {
+    font-size: 40px;
+    font-weight: 700;
+    color: #000;
+    max-width: 895px;
+    width: 100%;
+    display: block;
+    margin: 0 auto 48px;
+    line-height: 1;
+  }
+  #shop-your-way .icon-box-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 12px 0;
+    justify-content: center;
+    text-align: center;
+  }
+  #shop-your-way .icon-box {
+    width: 25%;
+    padding: 20px;
+    border-right: 1px solid rgba(0,0,0,0.2);
+  }
+  #shop-your-way .icon-box:last-child {
+    border: none;
+  }
+  #shop-your-way .icon-box .box-icon {
+    margin-bottom: 27px;
+  }
+  #shop-your-way .icon-box .box-content {
+    font-size: 19px;
+    line-height: 26px;
+    color: #000;
+    font-weight: 700;
+  }
+
+  @media screen and (max-width:767px){
+    #shop-your-way {
+      background-color: #FFCEE8;
+      padding: 30px 0 17px;
+    }
+    #shop-your-way .sec-title {
+      font-size: 28px;
+      line-height: 35px;
+    }
+    #shop-your-way .icon-box {
+      width: 50%;
+      border-right: none;
+      border-bottom: 1px solid rgba(0,0,0,0.2);
+    }
+    #shop-your-way .icon-box:nth-child(2n+1) {
+      border-right: 1px solid rgba(0,0,0,0.2);
+    }
+    #shop-your-way .icon-box:nth-child(3) {
+      border-bottom: none;
+    }
+  }
+</style>
+
+<div id="shop-your-way">
+  <div class="container">
+    <h2 class="sec-title">
+      {{ section.settings.sec_title}}
+    </h2>
+
+    <div class="icon-box-row">
+      {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'blurb' %}
+      <div class="icon-box">
+        <img src="{{ block.settings.box_icon | img_url:'' }}" alt="" class="box-icon">
+
+        <h4 class="box-content">
+          {{ block.settings.box_content}}
+        </h4>
+      </div>
+      {% endcase %}
+      {% endfor %}
+    </div>
+    
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Shop Your Way",
+    "class": "shop-your-way",
+    "settings": [
+      {
+        "type": "text",
+        "id": "sec_title",
+        "label": "Section Title",
+        "default": "Shop your way with andAndrea"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "blurb",
+        "name": "Blurb",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "box_icon",
+            "label": "Box Image Icon"
+          },
+          {
+            "type": "textarea",
+            "id": "box_content",
+            "label": "Blurb",
+            "default": "Lorem Ipsum"
+          }
+        ]
+      }
+    ],
+    "presets":[
+      {
+        "name":"Shop Your Way",
+        "category": "Custom"
+      }
+    ]
+  }
+{% endschema %}

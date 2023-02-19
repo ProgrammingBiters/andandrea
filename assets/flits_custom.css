@@ -1,0 +1,96 @@
+
+/****PLEASE DON'T MAKE CHANGES IN THIS FILE IT'S AFFECT THE CODE IF YOU NEED ANY HELP PLEASE CONTACT TO FLITS TEAM support@getflits.com ****/
+.flits-account-page-container .flits-account-page-nav .flits-nav-tabs .flits-menu-item .flits-nav-link .flits-span-svg svg{
+  width: 20px;
+  height: 20px;
+  float: left;
+  margin-right: 15px;
+  position: relative;
+}
+
+.flits-account-page-container .flits-account-page-nav .flits-nav-tabs .flits-menu-item.flits-active:first-child, .flits-account-page-container .flits-account-page-nav .flits-nav-tabs .flits-menu-item:hover:first-child {
+    border-radius: 0;
+}
+
+.flits-account-page-container .flits-account-page-nav .flits-nav-tabs .flits-menu-item.flits-active,
+.flits-account-page-container.flits-has-hover .flits-account-page-nav .flits-nav-tabs .flits-menu-item:hover,
+.flits-account-page-container .flits-account-page-nav .flits-nav-tabs .flits-menu-item .flits-nav-link .flits-badge-nav{
+    background-color: rgb(153 153 153 / 24%);
+}
+.flits-account-page-container .flits-account-page-nav .flits-nav-tabs .flits-menu-item .flits-nav-link .flist-menu-title {
+    font-size: 14px;
+}
+.flits-account-page-container .flits-account-page-nav .flits-nav-tabs .flits-menu-item.flits-active .flits-nav-link .flist-menu-title {
+    font-size: 16px;
+}
+
+.flits-empty-icon-box svg {
+  width: auto !important;
+  height: auto !important;
+}
+
+.flits-account-page-container .flits-account-page-tabs {
+    width: calc(100% - 250px);
+}
+.flits-account-page-container .flits-account-page-nav {
+    width: 250px;
+}
+.flits-account-page-container .flits-account-page-header .flits-header-title .flits-h1 {
+    text-align: left;
+    margin-left: 6px;
+}
+
+.flits-span-svg polygon{
+  fill: none !important;
+}
+
+@media (min-width:1200px) {
+.flits-account-page-container {
+    width: 95%!important;
+}
+}
+.flits-wls-snackbar .flits-wls-snackbar-header{
+  background:#E31D93!important;
+}
+.flits-wls-snackbar {
+  border: 1px solid #E31D93!important;
+}
+.flits-wishlist-colection-style .flits-wls-button-secondary.flits-wls-inactive .flits-wls-icon-svg-color-blue,
+.filts-wishlist-product-style .flits-wls-button-secondary.flits-wls-inactive .flits-wls-icon-svg-color-blue{
+  fill:none!important;
+}
+.filts-wishlist-product-style a.flits-wls-button {
+    text-transform: uppercase;
+    font-size: 13px!important;
+    letter-spacing: .13em;
+    border-radius: 4px!important;
+    font-weight: 400 !important;
+}
+
+.flits-account-page-container .flits-product-card{
+  border:none!important;
+}
+.flits-account-page-container .flits-product-card .flits-product-image{
+    height:auto;
+}
+.flits-account-page-container img{
+  widows:100%;
+}
+.flits-select-row .pretty-select{
+  width:100%!important;
+  padding:0!important;
+}
+.flits-select-row .pretty-select > svg,
+.flits-select-row .pretty-select > span{
+  display:none!important;
+}
+.flits-account-page-container .flits-product-card .flits-product-price{
+  text-align:left;
+}
+.flits-account-page-container .flits-product-card .flits-product-quantity [name="product_quantity_input"]{
+/*   border-radius:0px!important; */
+}
+.flits-account-page-container .flits-product-card button[type=button],
+.flits-account-page-container .flits-product-card .flits-product-quantity{
+    width:140px;
+}

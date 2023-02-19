@@ -1,0 +1,308 @@
+<style>
+  .testimonial-section{
+  	display: none;
+  }
+  #custom-testimonial-section .testimonial-section {
+    padding: 0 63px;
+    position: relative;
+  }
+  #custom-testimonial-section .sec-title {
+    font-size: 50px;
+    line-height: 1em;
+    margin-bottom: 73px;
+    color: #fff;
+    text-align: center;
+  }
+  #custom-testimonial-section .swiper {
+    width: 100%;
+    height: 100%;
+  }
+  
+  #custom-testimonial-section .swiper-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: flex;
+    transition-property: transform;
+    box-sizing: content-box;
+  }
+
+  #custom-testimonial-section .swiper-slide {
+    height: auto;
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: flex-start;
+    -ms-flex-pack: flex-start;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+    -webkit-box-align: flex-start;
+    -ms-flex-align: flex-start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
+  }
+
+  #custom-testimonial-section .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  #custom-testimonial-section .swiper-button-prev, #custom-testimonial-section .swiper-button-next {
+    background: transparent;
+    width: 34px;
+    height: 34px;
+    border: 2px solid #7B7B7B;
+    color: #fff;
+  }
+  #custom-testimonial-section .swiper-button-prev::after, #custom-testimonial-section .swiper-button-next::after {
+    font-size: 12px;
+    color: #7B7B7B;
+  }
+  
+  #custom-testimonial-section {
+    padding: 100px 0;
+  }
+  #custom-testimonial-section .container {
+    max-width: 1640px;
+    width: 95%;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  #custom-testimonial-section .testimonial-content {
+    background-color: #FDF3F5;
+    border-radius: 10px;
+    padding: 30px 38px;
+  }
+  #custom-testimonial-section .testi-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    text-align: left;
+  }
+  #custom-testimonial-section .testi-stars {
+    max-width: max-content;
+    display: block;
+    margin: 0 0 18px;
+  }
+  #custom-testimonial-section .testi-content p {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.8;
+    text-align: left;
+    color: #000;
+  }
+  #custom-testimonial-section .testi-autor {
+    text-align: left;
+    color: #7B7B7B;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 400;
+  }
+
+  @media screen and (max-width: 1680px){
+    #custom-testimonial-section .sec-title {
+      font-size: 35px;
+    }
+    #custom-testimonial-section .testimonial-content {
+      padding: 40px;
+    }
+    #custom-testimonial-section .testi-name {
+      font-size: 25px;
+    }
+    #custom-testimonial-section .testi-status {
+      font-size: 18px;
+    }
+    #custom-testimonial-section .testi-stars .spr-icon.spr-icon-star {
+      font-size: 14.5px !important;
+    }
+    #custom-testimonial-section .testi-content p {
+      font-size: 16px;
+    }
+  }
+  
+  @media screen and (max-width: 1024px){
+    #custom-testimonial-section {
+      padding: 50px 0;
+    }
+  }
+  
+  @media screen and (max-width: 767px){
+    #custom-testimonial-section .sec-title {
+      font-size: 25px;
+      margin-bottom: 32px;
+    }
+    #custom-testimonial-section .testimonial-section {
+      padding: 0 45px;
+    }
+    #custom-testimonial-section .testimonial-content {
+      padding: 40px 15px 15px;
+    }
+    #custom-testimonial-section .testi-content p {
+      font-size: 15px;
+    }
+  }
+</style>
+
+<!-- Swiper -->
+<div id="testimonial-anchor"></div>
+<div id="custom-testimonial-section">
+    <div class="container">
+      
+      {% if section.settings.section_title != ''%}
+      <h2 class="sec-title">
+        {{section.settings.section_title}}
+      </h2>
+      {% endif %}
+
+      <!-- TrustBox widget - Slider -->
+      <div class="trustpilot-widget" data-locale="en-US" data-template-id="54ad5defc6454f065c28af8b" data-businessunit-id="6047c95582d4930001d2ec7b" data-style-height="240px" data-style-width="100%" data-theme="light" data-stars="1,2,3,4,5" data-review-languages="en">
+        <a href="https://www.trustpilot.com/review/andandrea.com" target="_blank" rel="noopener">Trustpilot</a>
+      </div>
+      <!-- End TrustBox widget -->
+      
+      
+      
+      <div class="testimonial-section">
+        <div class="swiper mySwiper">
+          <div class="swiper-wrapper">
+            {% for block in section.blocks %}
+            {% case block.type %}
+            {% when 'slide' %}
+            <div class="swiper-slide">
+              <div class="testimonial-content">
+                
+                <div class="testi-stars">
+                  <img src="{{ block.settings.testimonial_ratings | img_url: '' }}" class="testi-author">
+                </div>
+                
+
+                <!-- <img src="{{ block.settings.testimonial_image | img_url: '' }}" class="testi-author"> -->
+
+
+                <h3 class="testi-title">
+                  {{block.settings.testimonial_title}}
+                </h3>
+
+                <div class="testi-content">
+                  <p>
+                    {{block.settings.testimonial_paragraph}}
+                  </p>
+                </div>
+                
+                <h5 class="testi-autor">
+                  {{block.settings.testimonial_name}}
+                </h5>
+              </div>
+
+
+            </div>
+            {% endcase %}
+            {% endfor %}
+          </div>
+        </div>
+        <!-- navigation controls -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+<!--         <div class="swiper-pagination"></div> -->
+      </div>
+  </div>
+</div>
+
+
+<!-- Initialize Swiper -->
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    slidesPerView: 1,
+    spaceBetween: 16,
+    loop: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 1,
+        spaceBetween: 16,
+      },
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 16,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 16,
+      },
+    },//breakpoints
+  });
+</script>
+
+{% schema %}
+    {
+        "name": "Custom Testimonial",
+        "class": "custom-testimonial-section",
+        "settings": [
+        	{
+              "type": "text",
+              "id": "section_title",
+              "label": "Section Title",
+              "default": "Section Title"
+            }
+        ],
+        "blocks": [
+            {
+            "name": "Slide",
+            "type": "slide",
+            "settings": [
+                {
+                  "type": "image_picker",
+                  "id": "testimonial_image",
+                  "label": "Image"
+                },
+				{
+                  "type": "image_picker",
+                  "id": "testimonial_ratings",
+                  "label": "Testimonial Star"
+                },
+                {
+                    "type": "text",
+                    "id": "testimonial_title",
+                    "label": "Testimonial title",
+                    "default": "Testimonial title"
+                },
+                {
+                    "type": "text",
+                    "id": "testimonial_name",
+                    "label": "Testimonial Name",
+                    "default": "Testimonial Name"
+                },
+                {
+                    "type": "textarea",
+                    "id": "testimonial_paragraph",
+                    "label": "Testimonial Text",
+                    "default": "Testimonial Text"
+                }
+              ]
+            }
+        ],
+        "presets":[
+            {
+            "name":"Custom Testimonial",
+            "category":"Custom"
+            }
+        ]
+    }
+{% endschema %}

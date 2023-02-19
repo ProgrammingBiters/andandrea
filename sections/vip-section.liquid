@@ -1,0 +1,210 @@
+
+<style>
+  
+  
+
+.columns-wrapper {
+  display:flex;
+  flex-direction:row;
+  align-items:center;
+  background: #FF8CDD;
+color:#fff;
+      padding-top: 30px;
+    padding-bottom: 30px;
+	
+}
+.col-one {
+  padding: 40px;
+  text-align: center;
+  border-right: 2px solid #fff;
+  width: 30%;
+}
+  .col-two {
+  padding: 20px;
+  
+ 
+  width: 70%;
+}
+  .icontext {
+    width: 25%;
+    text-align: center;
+    padding:20px 30px;
+}
+  .col-two {
+    display: flex;
+    flex-wrap: wrap;
+}
+.col-one h2 {
+    color: #fff;
+    font-size: 48px;
+    font-weight: 700;
+}
+  .col-one h2 svg {
+    width: 176px !important;
+    height: auto;
+    margin-bottom: 20px;
+}
+.svgcon svg {
+    width: 40%;
+    height: 100px;
+}
+  
+ .justuno-btn {
+   cursor: pointer;
+ }
+
+</style>
+
+           
+
+ <div class="columns-wrapper">
+  <div class="col-one">
+    <h2>{{section.settings.storenmeone}}</h2>
+    <p>{{section.settings.strlcone}}</p>
+    <div >
+          <a href="https://andandrea.com/pages/get-early-access" class="
+            justuno-btn
+            button        
+            button alt">
+            {{section.settings.namelin}}
+          </a>
+    </div>
+  </div>
+  <div class="col-two">
+    {% for block in section.blocks%}
+    <div class="icontext">
+      <div class="svgcon">{{block.settings.svgic}}</div>
+      <p>{{block.settings.strlc}}</p>
+    
+    </div>
+   {%endfor%}
+  </div>
+  
+</div>        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% schema %}
+{
+"name": "VIP Section",
+"max_blocks": 4,
+"settings": [
+
+  {
+   "type": "textarea",
+   "id": "storenmeone",
+   "label": "Heading",
+    "default": "Heading"
+     },
+ {
+   "type": "textarea",
+   "id": "strlcone",
+   "label": "Detail",
+    "default": "Detail"
+     },
+{
+   "type": "text",
+   "id": "namelin",
+   "label": "Link Name",
+    "default": "link"
+     },
+{
+          "type": "url",
+          "id": "button1_link",
+          "label": "Button Link"
+        }
+
+
+],
+
+"blocks":[
+{
+"type": "item",
+"name": "item",
+
+"settings":[
+
+  
+   {
+   "type": "html",
+   "id": "svgic",
+   "label": "SVG Icon html"
+    
+     },  
+
+ {
+   "type": "textarea",
+   "id": "strlc",
+   "label": "Detail",
+    "default": "Detail"
+     },
+
+
+{
+        "type": "color",
+        "id": "bgcl",
+        "label": "section background Color",
+        "default": "#f5f5f5"
+      },
+{
+        "type": "color",
+        "id": "itemhed",
+        "label": "item Heading and content Color",
+        "default": "#000"
+      }
+
+
+]
+
+}
+],
+ "presets": [
+      {
+        "name": "VIP Section",
+        "category": "Image",
+        "blocks": [
+          {
+            "type": "item"
+          },
+          {
+            "type": "item"
+          },
+          {
+            "type": "item"
+          },
+          {
+            "type": "item"
+          }
+        
+        ]
+      }
+    ]
+
+
+}
+{% endschema %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

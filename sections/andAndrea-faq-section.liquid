@@ -1,0 +1,129 @@
+<style>
+  #andAndrea-faq-section {
+    padding: 20px 0 50px;
+  }
+  #andAndrea-faq-section .sec-title {
+    font-size: 40px;
+    font-weight: 700;
+    color: #000;
+    max-width: 895px;
+    width: 100%;
+    display: block;
+    margin: 0 auto 48px;
+    line-height: 1;
+  }
+  #andAndrea-faq-section .faq-tab {
+    max-width: 839px;
+    width: 100%;
+    display: block;
+    margin: 50px auto 0;
+  }
+  #andAndrea-faq-section .faq-question {
+    font-size: 19px;
+    line-height: 26px;
+    font-weight: 700;
+    color: #000;
+    text-align: left;
+  }
+  #andAndrea-faq-section .faq-answer {
+    font-size: 19px;
+    line-height: 26px;
+    color: #000;
+  }
+
+  @media screen and (max-width: 767px){
+    #andAndrea-faq-section {
+      padding: 20px 0 50px;
+    }
+    #andAndrea-faq-section .sec-title {
+      max-width: 292px;
+      font-size: 28px;
+      line-height: 35px;
+      margin-bottom: 36px;
+    }
+    #andAndrea-faq-section .faq-tab {
+      max-width: 839px;
+      width: 100%;
+      display: block;
+      margin: 36px auto 0;
+    }
+    #andAndrea-faq-section .faq-tab {
+      max-width: 334px;
+      margin: 36px auto 0;
+    }
+    #andAndrea-faq-section .faq-question {
+      font-size: 16px;
+      line-height: 22px;
+    }
+    #andAndrea-faq-section .faq-answer {
+      font-size: 16px;
+      line-height: 22px;
+    }
+  }
+</style>
+
+
+<div id="andAndrea-faq-section">
+  <div class="container">
+    <h2 class="sec-title">
+      {{ section.settings.section_title }}
+    </h2>
+
+    {% for block in section.blocks %}
+    {% case block.type %}
+    {% when 'faq' %}
+    <div class="faq-tab">
+      <h3 class="faq-question">
+        {{ block.settings.faq_question}}
+      </h3>
+
+      <p class="faq-answer">
+        {{ block.settings.faq_answer}}
+      </p>
+    </div>
+    {% endcase %}
+    {% endfor %}
+
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "andAndrea Faq Section",
+    "class": "andandrea-faq-section",
+    "settings": [
+      {
+        "type": "text",
+        "id": "section_title",
+        "label": "Section Title",
+        "default": "Frequently Asked Questions:"
+      }
+    ],
+    "blocks": [
+        {
+        "name": "FAQS",
+        "type": "faq",
+        "settings": [
+            {
+                "type": "text",
+                "id": "faq_question",
+                "label": "FAQ Question",
+                "default": "Question"
+            },
+            {
+                "type": "textarea",
+                "id": "faq_answer",
+                "label": "FAQ Answer",
+                "default": "Answer"
+            }
+          ]
+        }
+    ],
+    "presets":[
+        {
+        "name":"andAndrea Faq Section",
+        "category":"Custom"
+        }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,230 @@
+<style>
+  #how-itworks-section {
+    text-align: center;
+    padding: 0 0 50px 0;
+  }
+  #how-itworks-section .sec-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #E21C93;
+    max-width: 895px;
+    width: 100%;
+    display: block;
+    margin: 0 auto 32px;
+    line-height: 1;
+  }
+  #how-itworks-section .sec-title span {
+    color: #E31D93;
+  }
+  #how-itworks-section .booking-section {
+    position: relative;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 -34px;
+  }
+  #how-itworks-section .appointment-block {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 41px 38px;
+    max-width: 345px;
+    min-height: 278px;
+    background-color: #fff;
+    box-shadow: 0 0 12px 0 rgba(0,0,0,0.2);
+    margin-right: 50px;
+    border-radius: 11px;
+  }
+  #how-itworks-section .appointment-block:last-child {
+    margin-right: 0;
+  }
+
+  #how-itworks-section .appointment-image img {
+    margin-bottom: 20px;
+  }
+
+  #how-itworks-section .appointment-contents {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  #how-itworks-section .appointment-contents a {
+    font-size: 18px;
+    padding: 5px;
+    color: #000000;
+    font-weight: 400;
+  }
+
+  #how-itworks-section .appointment-contents a i {
+    margin-left: 8px;
+  }
+
+  #how-itworks-section .appointment-contacts {
+    margin: 40px auto 0;
+  }
+
+  @media screen and (max-width:1024px){
+    #how-itworks-section {
+      padding: 50px 0;
+    }
+    #how-itworks-section .booking-section {
+      padding: 0;
+      flex-wrap: wrap;
+    }
+    #how-itworks-section .appointment-block {
+      width: 50% !important;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 50px 33px 0;
+    }
+    .appointment-contacts div {
+      margin-bottom: 20px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  @media screen and (max-width:767px){
+    #how-itworks-section {
+      text-align: center;
+      padding: 32px 0;
+    }
+    #how-itworks-section .sec-title {
+      font-size: 18px;
+      line-height: 24px;
+      max-width: 358px;
+      margin: 0 auto 18px;
+    }
+    #how-itworks-section .booking-section {
+      max-width: 358px;
+      flex-wrap: wrap;
+      width: 100%;
+      margin: 0 auto;
+    }
+    #how-itworks-section .appointment-image img {
+      margin-bottom: 20px;
+    }
+    #how-itworks-section .appointment-block {
+      padding: 45px 30px;
+      margin: 0 0 42px;
+      max-width: 345px;
+      width: 100% !important;
+    }
+    #how-itworks-section .appointment-block:last-child {
+      margin: 0;
+    }
+    #how-itworks-section .appointment-contents a {
+      font-size: 16px;
+      padding: 5px;
+      font-weight: 400;
+      color: #000;
+    }
+    
+  }
+</style>
+  
+  <!-- Swiper -->
+  <div id="how-itworks-section">
+      <div class="container">
+        
+        <h2 class="sec-title">
+          {{section.settings.section_title}}
+        </h2>
+        
+        <div class="booking-section">
+          {% for block in section.blocks %}
+          {% case block.type %}
+          {% when 'slide' %}
+          	<div class="appointment-block">
+              <div class="appointment-image">
+                <img src="{{ block.settings.feature_image | img_url: '' }}" class="testi-author">
+              </div>
+
+              <div class="appointment-contents">
+                <a href="{{ block.settings.button_link }}" tabindex="0">{{ block.settings.button_label }}<i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </div>
+          {% endcase %}
+          {% endfor %}
+        </div>
+  
+          
+          <div class="appointment-contacts">
+              {% if section.settings.section_phone_number != '' %}
+              <div>
+                  <img src="https://cdn.shopify.com/s/files/1/1357/9371/files/callIconBlue.png?v=1656704278" alt=""> {{ section.settings.section_phone_number }}
+              </div>
+              {% endif %}
+              {% if section.settings.section_email_add != '' %}
+              <div>
+                  <img src="https://cdn.shopify.com/s/files/1/1357/9371/files/mailIconBlue.png?v=1656704272" alt=""> {{ section.settings.section_email_add }}
+              </div>
+              {% endif %}
+          </div>
+    </div>
+  </div>
+  
+  
+  {% schema %}
+      {
+          "name": "andAndrea how it works",
+          "class": "custom-testimonial-section",
+          "settings": [
+              {
+                "type": "text",
+                "id": "section_title",
+                "label": "Section Title",
+                "default": "Section Title"
+              },
+              {
+                  "type": "text",
+                  "id": "section_phone_number",
+                  "label": "Phone Number",
+                  "default": "123402345001"
+              },
+              {
+                  "type": "text",
+                  "id": "section_email_add",
+                  "label": "Email Address",
+                  "default": "members@huevine.com"
+              }
+          ],
+          "blocks": [
+              {
+              "name": "Slide",
+              "type": "slide",
+              "settings": [
+                  {
+                    "type": "image_picker",
+                    "id": "feature_image",
+                    "label": "Image"
+                  },
+                  {
+                      "type": "text",
+                      "id": "button_label",
+                      "label": "Author Name",
+                      "default": "Testimonial Name"
+                  },
+                  {
+                      "type": "url",
+                      "id": "button_link",
+                      "label": "Button Link",
+                      "info": "Button Link"
+                  }
+                ]
+              }
+          ],
+          "presets":[
+              {
+              "name":"andAndrea how it works",
+              "category":"Custom"
+              }
+          ]
+      }
+  {% endschema %}
+  

@@ -1,0 +1,115 @@
+<style>
+  #big-cta-section{
+    background-image: url('{{ section.settings.section_background_image | img_url:'' }}');
+      min-height: 469px;
+      display: flex;
+      align-items: center;
+      background-size: cover;
+      }
+  #big-cta-section .section-btn {
+    max-width: 335px;
+    width: 100%;
+    height: 71px;
+    background-color: #E21C93;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    line-height: 30px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 32px;
+    margin-left: auto;
+    margin-right: 28px;
+  }
+  #big-cta-section .content-cont p {
+    margin: 0 0 0 auto;
+    max-width: 362px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000;
+  }
+
+
+
+  @media screen and (max-width: 1024px){
+    #big-cta-section {
+      background-image: url('{{ section.settings.section_background_image_mobile | img_url:'' }}');
+        min-height: 550px;
+        display: flex;
+        align-items: flex-start;
+        background-size: cover;
+        background-position: bottom right;
+        padding: 50px 0;
+        text-align: center;
+        }
+    #big-cta-section .section-btn {
+      max-width: 271px;
+      height: 57px;
+      margin: 0 auto 14px;
+      font-size: 24px;
+      line-height: 32px;
+    }
+    #big-cta-section .content-cont p {
+      margin: 0 auto;
+    }
+  }
+</style>
+
+<div id="big-cta-section">
+    <div class="container">
+        <div class="content-cont">
+            <a href="{{ section.settings.button_link }}" class="section-btn">
+              {{ section.settings.button_label }}
+            </a>
+
+            <p>
+              {{ section.settings.cta_description }}
+            </p>
+        </div>
+    </div>
+</div>
+
+{% schema %}
+  {
+    "name": "andAndrea I want in",
+    "class": "i-want-in",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "section_background_image",
+        "label": "Background Image"
+      },
+		{
+        "type": "image_picker",
+        "id": "section_background_image_mobile",
+        "label": "Background Image"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Label",
+        "default": "Button Label"
+      },
+      {
+        "type": "url",
+        "id": "button_link",
+        "label": "Button Link",
+        "info": "Button Link"
+      },
+      {
+        "type": "textarea",
+        "id": "cta_description",
+        "label": "Section Description",
+        "default": "section description"
+      }
+    ],
+	"presets":[
+      {
+      "name":"andAndrea I want in",
+      "category":"Custom"
+      }
+    ]
+  }
+{% endschema %}

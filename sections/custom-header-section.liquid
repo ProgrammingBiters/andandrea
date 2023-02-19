@@ -1,0 +1,212 @@
+<style>
+  
+#shopify-section-header {
+  display: none;
+}
+  #shopify-section-footer {
+  display: none;
+}
+  html {
+    padding: 0 !important;
+  }
+
+  .top-header .trustpilot-widget {
+    padding: 15px 0 !important;
+  }
+
+  /* font-family overide */
+  body, h1, h2, h3, h4, h5, h6, p, a, strong, span{
+    font-family: 'Montserrat', sans-serif !important;
+  }
+
+  .top-header {
+    text-align: center;
+  }
+  .top-header .container {
+    max-width: 1372px;
+  }
+  .top-header .top-rating {
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 68px;
+    position: relative;
+  }
+  .top-header .swiper-slide.swiper-slide-next .top-rating::before {
+    content: '';
+    width: 1px;
+    height: 53px;
+    background-color: #FFA6DB;
+    display: block;
+    position: absolute;
+    right: 0;
+  }
+  .top-header .swiper-slide.swiper-slide-next .top-rating::after {
+    content: '';
+    width: 1px;
+    height: 53px;
+    background-color: #FFA6DB;
+    display: block;
+    position: absolute;
+    left: 0;
+  }
+  .top-header .star-rating {
+	width: auto;
+	height: auto;
+  }
+  
+  .container {
+    margin: 0 auto;
+    max-width: 1080px;
+    width: 90%;
+  }
+  .page-new-landing-page-redesign {
+    padding: 0;
+  }
+  .page-new-landing-page-redesign .cc-announcement {
+    display: none;
+  }
+  .page-new-landing-page-redesign .links.site-control__inner {
+    display: none;
+  }
+  #custom-header-sec {
+    position: absolute;
+    top: 0;
+  }
+  .custom-site-logo {
+    max-width: 232px;
+    width: 100%;
+    height: 55px;
+    margin-top: 106px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+  
+  .section-footer__row-container {
+    display: none;
+  }
+  
+  @media screen and (max-width: 767px){
+    .top-header .top-rating::before {
+      display: none;
+    }
+
+    #custom-header-sec a {
+      display: block;
+      text-align: center;
+    }
+  }
+</style>
+
+<div class="top-header">
+  <!-- TrustBox widget - Micro Combo 
+  <div class="trustpilot-widget" data-locale="en-US" data-template-id="5419b6ffb0d04a076446a9af" data-businessunit-id="6047c95582d4930001d2ec7b" data-style-height="20px" data-style-width="100%" data-theme="light">
+    <a href="https://www.trustpilot.com/review/andandrea.com" target="_blank" rel="noopener">Trustpilot</a>
+  </div>
+  <!-- End TrustBox widget -->
+
+  <div class="container">
+  	<div class="swiper myRatings">
+        <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+            {% case block.type %}
+                {% when 'ratings' %}
+                <div class="swiper-slide">
+                    <a class="top-rating" href="#testimonial-anchor">
+                        <img src="{{ block.settings.site_rating | img_url: '' }}" class="star-rating">
+                    </a>
+                </div>
+            {% endcase %}
+        {% endfor %}
+        </div>
+    </div>
+  </div>
+   
+</div>
+<header id="custom-header-sec">
+  <a href="{{ section.settings.custom_site_link }}">
+    <img src="{{ section.settings.custom_site_logo | img_url:'' }}" alt="" class="custom-site-logo">
+  </a>
+</header>
+
+<!-- Swiper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.2.6/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+  var swiper = new Swiper(".myRatings", {
+    slidesPerView: 1,
+    spaceBetween: 16,
+    loop: true,
+//     autoplay: {
+//       delay: 2500,
+//       disableOnInteraction: false,
+//     },
+    breakpoints: {
+      640: {
+        slidesPerView: 1,
+        spaceBetween: 16,
+      },
+      768: {
+        slidesPerView: 2,
+        spaceBetween: 16,
+      },
+      1025: {
+        slidesPerView: 3,
+        spaceBetween: 16,
+      },
+    },//breakpoints
+  });
+</script>
+
+
+{% schema %}
+    {
+        "name": "Header Options",
+        "class": "Header Options",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "top_header_raitings",
+                "label": "top-header"
+            },
+            {
+                "type": "image_picker",
+                "id": "custom_site_logo",
+                "label": "Site Logo"
+            },
+            {
+                "type": "url",
+                "id": "custom_site_link",
+                "label": "Site Link"
+            }
+        ],
+        "blocks": [
+            {
+                "type": "ratings",
+                "name": "rating",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "site_rating",
+                        "label": "Site Ratings"
+                    },
+					{
+                        "type": "html",
+                        "id": "review_embed_code",
+                      	"label": "Review Embed Code",
+                        "default": "<div><!-- trust pilot embed code --></div>"
+                    }
+                ]
+            }
+        ],
+		"presets":[
+          {
+            "name":"Custom Site Header",
+            "category":"Custom"
+          }
+        ]
+    }
+{% endschema %}

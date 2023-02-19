@@ -1,0 +1,33 @@
+<div id="cart_item_bg" class="cart_bg">
+  <div class="cart-content">
+    <span class="close">×</span>
+    <h4 class="added-to-cart-title">
+      <svg fill="#000000" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"></path><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>
+      My Cart
+    </h4>
+    <p class="freeshipping_msg"></p>
+    <div class="cart_popup_items">
+      {% comment %}
+      {% for i in (1..5) %}
+      <div class="cart-product">
+        <div class="cart-product__image">
+          <img src="https://cdn.shopify.com/s/files/1/0763/7883/products/Facetune_11-08-2018-20-58-07_300x.jpg?v=1562553155" alt="Asymmetric Knit/Jumper">
+        </div>
+        <div class="cart-product__content">
+          <p class="cart-product__content__title">Asymmetric Knit/Jumper</p>
+          <p class="cart-product__content__price"><span class="current-price theme-money">¥17,100</span></p>
+          <p class="cart-product__content__meta">Color: Marle Grey</p>
+          <p class="cart-product__content__meta">Size: XXS - XS</p>
+        </div>
+      </div>
+      {% endfor %}
+      {% endcomment %}
+    </div>
+    <p class="cart_emptymsg">Cart is Empty</p>
+    <p class="product-message"><span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2"><path style="opacity:1;fill:none;stroke:#222a33;stroke-width:2px;stop-opacity:1" d="M57 20a3.995 3.995 0 0 0-1.172-2.828A3.995 3.995 0 0 0 53 16H11a3.995 3.995 0 0 0-2.828 1.172A3.995 3.995 0 0 0 7 20v24c0 1.061.421 2.078 1.172 2.828A3.995 3.995 0 0 0 11 48h42a3.995 3.995 0 0 0 2.828-1.172A3.995 3.995 0 0 0 57 44V20z"/><path style="opacity:1;fill:none;stroke:#222a33;stroke-width:2px;stop-opacity:1" d="M16.375 44h-3.208a2.003 2.003 0 0 1-2-2v-3m36.458-19h3.208a2.003 2.003 0 0 1 2 2v3m-41.666 0v-3a2 2 0 0 1 2-2h3.208M52.833 39v3a2 2 0 0 1-2 2h-3.208M34 28a2.5 2.5 0 1 0-2 4 2.5 2.5 0 0 1 0 5 2.5 2.5 0 0 1-2-1M32 27v-2M32 39v-2"/></svg></span> Your purchase will be converted to the equivalent value in Australian Dollars upon checkout</p>
+    <p class="links" id="cart_popup_links">
+      <a href="/cart" class="button alt">View cart</a>
+      <a href="/checkout" class="button button--checkout">Checkout</a>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,388 @@
+<style>
+  #dovetale-container {
+  display: none;
+}
+  .container {
+    margin: 0 auto;
+    max-width: 1166px;
+    width: 95%;
+  }
+  
+  .page-andandrea-landing-page #shopify-section-header {
+    display: none;
+  }
+
+  .page-andandrea-landing-page #shopify-section-footer {
+    display: none;
+  }
+  
+  .container-fluid {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  #custom-banner{
+    background-image: url("{{ section.settings.section_background_image | img_url: ''}}");
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      background-size: cover;
+      background-position: right center;
+      position: relative;
+      }
+
+  #custom-banner .textImage {
+    max-width: 265px;
+    width: 100%;
+    margin-bottom: 33px;
+  }
+
+  #custom-banner .banner-row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  #custom-banner .col-left {
+    max-width: 55%;
+    width: 100%;
+  }
+  #custom-banner .col-right {
+    max-width: 0;
+    width: 100%;
+  }
+
+  #custom-banner .pretitle {
+    margin: 0 0 15px;
+    font-size: 16px;
+    line-height: 21px;
+    text-transform: uppercase;
+    color: #000;
+  }
+  #custom-banner .section-title {
+    color: #000 !important;
+    margin-bottom: 12px;
+    text-align: left;
+    font-size: 40px;
+    line-height: 53px;
+    font-weight: 600;
+    margin-bottom: 9px;
+  }
+  
+  #custom-banner .section-description {
+    font-size: 16px;
+    line-height: 21px;
+    color: #000;
+    margin-bottom: 40px;
+    max-width: 472px;
+  }
+
+  #custom-banner .hero-btn-1 {
+    max-width: 335px;
+    width: 100%;
+    height: 71px;
+    background-color: #E21C93;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    line-height: 30px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 32px;
+  }
+  
+  #custom-banner .klaviyo-form-R8csXp {
+    max-width: 450px;
+    margin-bottom: 24px;
+  }
+  
+  #custom-banner .after-button-text {
+    font-size: 16px;
+    line-height: 21px;
+    margin: 0;
+    color: #000;
+    max-width: 478px;
+  }
+
+
+  #custom-banner .needsclick.kl-private-reset-css-Xuajs1 {
+    background-color: #ffffff !important;
+  }
+  #custom-banner .needsclick.go1890236623.kl-private-reset-css-Xuajs1 {
+    height: 40px !important;
+  }
+  #custom-banner form input {
+    border: none !important;
+    border-bottom: 1px solid #D9D9D9 !important;
+    border-radius: 0 !important;
+  }
+  #custom-banner form input::-webkit-input-placeholder {
+    text-transform: uppercase;
+  }
+
+  #custom-banner form input:-ms-input-placeholder {
+    text-transform: uppercase;
+  }
+
+  #custom-banner form input::placeholder {
+    text-transform: uppercase;
+  }
+  #custom-banner .banner_featureIMG img {
+    transform: scale(1.2);
+    transform-origin: left;
+    position: relative;
+    left: 24px;
+  }
+
+  #custom-banner form {
+    border-radius: 5px !important;
+    padding: 20px !important;
+    box-shadow: 5px 5px 12px 0 rgba(0,0,0,0.1) !important;
+    background-color: #fff !important;
+  }
+
+  #custom-banner form .needsclick.go139254013.kl-private-reset-css-Xuajs1 {
+    background-color: #e51e93 !important;
+  }
+  #custom-banner form .needsclick.go3109424697.kl-private-reset-css-Xuajs1 {
+    background-color: #e51e93 !important;
+  }
+  #custom-banner form .needsclick.go279450927.kl-private-reset-css-Xuajs1 {
+    background-color: #e51e93 !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    border-radius: 5px !important;
+  }
+  #custom-banner form .needsclick.go3109184726.kl-private-reset-css-Xuajs1 {
+    padding: 10px !important;
+    height: 44px !important;
+  }
+
+  @media screen and (max-width: 1024px){
+    #custom-banner .banner_featureIMG img {
+      transform: scale(1);
+      transform-origin: left;
+      margin-top: 35px;
+    }
+  }
+
+  @media screen and (max-width: 767px){
+    #custom-banner{
+      background-image: url("{{ section.settings.section_background_image_mobile | img_url: ''}}");
+        }
+    #custom-banner {
+      padding-top: 60px;
+      padding-bottom: 60px;
+      background-position: right center;
+      height: 557px;
+      position: relative;
+      margin-bottom: 450px;    
+    }
+    #custom-banner .col-left {
+      max-width: 75%;
+      width: 100%;
+    }
+    #custom-banner .pretitle {
+      font-size: 12px;
+      line-height: 20px;
+    }
+    #custom-banner .textImage {
+      max-width: 157px;
+    }
+    #custom-banner .section-title {
+      max-width: 257px;
+      width: 100%;
+      display: block;
+      margin: 0;
+      font-size: 28px;
+      line-height: 35px;
+    }
+    #custom-banner .section-description {
+      font-size: 14px;
+      line-height: 20px;
+      max-width: 202px;
+    }
+    #custom-banner .banner-row {
+      flex-wrap: wrap;
+    }
+    #custom-banner .banner_featureIMG img {
+      left: 0;
+    }
+    #custom-banner .hero-btn-1 {
+      position: absolute;
+      bottom: -30px;
+      max-width: 271px;
+      height: 57px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+      font-size: 24px;
+      line-height: 32px;
+    }
+    #custom-banner .after-button-text {
+      position: absolute;
+      bottom: -400px;
+      max-width: 347px;
+      width: 100%;
+      text-align: center;
+      margin: 0 auto;
+      left: 0;
+      right: 0;
+      font-size: 14px;
+      line-height: 20px;
+    }
+
+    #custom-banner .klaviyo-form-R8csXp {
+      max-width: 320px;
+      position: absolute;
+      bottom: -280px;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+  }
+</style>
+  
+  <div id="custom-banner">
+    <div class="container">
+      
+      <div class="banner-row">
+        <div class="banner-col col-left">
+          
+          <div class="title-area">
+            <img src="{{ section.settings.custom_text_image | img_url: ''}}" class="textImage"/>
+
+            <p class="pretitle">
+              {{ section.settings.pre_title }}
+            </p>
+
+            <h1 class="section-title">
+              {{ section.settings.section_title }}
+            </h1>
+  
+            <p class="section-description">
+              {{ section.settings.section_description }}
+            </p>
+            
+            <div class="klaviyo-form-R8csXp"></div>
+  
+<!--             <div class="buttons-div">
+              <a href="{{ section.settings.button_1_link }}" class="hero-btn-1">
+                {{ section.settings.button_1_label }}
+              </a>
+            </div> -->
+
+            <p class="after-button-text">
+              {{ section.settings.after_button_text }}
+            </p>
+          </div>
+          
+        </div>
+        
+        
+        <div class="banner-col col-right">
+          <div class="banner_featureIMG">
+            {%- comment -%}
+            {%- if section.settings.custom_feature_image -%}
+            <img src="{{ section.settings.custom_feature_image | img_url:'' }}"/>
+            {%- endif -%}
+            {%- endcomment -%}
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  {% schema %}
+      {
+          "name": "Custom Banner Section",
+          "class": "hero-banner-section",
+          "settings": [
+              {
+                  "type": "image_picker",
+                  "id": "section_background_image",
+                  "label": "Section Background Image"
+              },
+				{
+                  "type": "image_picker",
+                  "id": "section_background_image_mobile",
+                  "label": "Section Background Image Mobile"
+              },
+              {
+                  "type":"number",
+                  "id":"padding_top",
+                  "label":"Padding Top",
+                  "default": 70
+              },
+              {
+                  "type":"number",
+                  "id":"padding_bottom",
+                  "label":"Padding Bottom",
+                  "default": 70
+              },
+              {
+                  "type":"number",
+                  "id":"padding_top_bottom_tab",
+                  "label":"Padding Top-Bottom Tablet",
+                  "default": 50
+              },
+              {
+                  "type":"number",
+                  "id":"padding_top_bottom_mob",
+                  "label":"Padding Top-Bottom Mobile",
+                  "default": 40
+              },
+              {
+                  "type": "text",
+                  "id": "pre_title",
+                  "label": "Before title",
+                  "default": "Before Title"
+              },
+              {
+                  "type": "text",
+                  "id": "section_title",
+                  "label": "Section title",
+                  "default": "Section Title"
+              },
+              {
+                  "type": "image_picker",
+                  "id": "custom_text_image",
+                  "label": "Site Logo"
+              },
+              {
+                  "type": "textarea",
+                  "id": "section_description",
+                  "label": "Section Description",
+                  "default": "Section description"
+              },
+              {
+                  "type": "text",
+                  "id": "button_1_label",
+                  "label": "Button 1 Label",
+                  "default": "Button 1 Label"
+              },
+              {
+                  "type": "url",
+                  "id": "button_1_link",
+                  "label": "Button 1 link"
+              },
+              {
+                "type": "textarea",
+                "id": "after_button_text",
+                "label": "After button text",
+                "default": "lorem ipsum"
+              }
+          ],
+          "presets":[
+            {
+              "name":"andAndrea Landing Banner",
+              "category":"Custom"
+            }
+          ]
+      }
+  {% endschema %}
+  
